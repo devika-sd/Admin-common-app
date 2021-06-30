@@ -73,8 +73,9 @@ class AddUser extends Component {
 
     passwordCheck(event) {
         let value = event.target.value;
-        if (value.length < 6) {
-            this.setState({ passwordError: "password must be greater than 6 characters", passwordvalid: 0 })
+        var password = new RegExp("^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,12}$",);
+        if (!password.test(value)) {
+            this.setState({ passwordError: "please enter a valid password", passwordvalid: 0 })
         }
         else {
             this.setState({ passwordError: '', passwordvalid: 1 })
@@ -112,7 +113,7 @@ class AddUser extends Component {
 
     housenumberCheck(event){
         let value = event.target.value
-        const housenumber = new RegExp("^[0-9]{1,4}$");
+        const housenumber = new RegExp("^[0-9]");
         if(housenumber.test(value)){
             this.setState({ housenumber: value, housenumbervalid: 1,housenoError:"" })
         }
@@ -123,7 +124,7 @@ class AddUser extends Component {
 
     localityCheck(event){
         let value = event.target.value
-        const locality = new RegExp('[a-zA-Z\s]{5,30}')
+        const locality = new RegExp('[a-zA-Z\s]')
         if(locality.test(value)){
             this.setState({ locality: value, localityvalid: 1,localityError:'' })
         }
@@ -134,7 +135,7 @@ class AddUser extends Component {
     
     citycheck(event){
         let value = event.target.value
-        const city = new RegExp('[a-zA-Z\s]{5,30}')
+        const city = new RegExp('[a-zA-Z\s]')
         if(city.test(value)){
             this.setState({ city: value, cityvalid: 1,cityError:'' })
         }

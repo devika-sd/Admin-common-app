@@ -29,7 +29,7 @@ class UserList extends React.Component {
 
     async changepage(value) {
         await this.setState({ active: value });
-        this.props.word === '' ? await this.getUsers() : await this.props.onfilterUsers(this.props.word, this.state.active, this.state.limit);
+        this.props.word === '' ? await this.getUsers() : await this.props.onfilterUsers('email[regex]='+this.props.word+'&page='+this.state.active+'&limit='+this.state.limit+'&isAdmin='+this.props.role);
     }
     async getUsers() {
         if(this.state.isAdmin === '')
@@ -45,7 +45,16 @@ class UserList extends React.Component {
     async setRole(value)
     {
         console.log("value **"+value )
-        await this.setState({isAdmin:value});
+        if(value === '')
+        {
+            this.props.onRoleBasedFilter('none');
+        }
+        else
+        {
+            this.props.onRoleBasedFilter(value);
+        }
+        await this.setState({isAdmin:value,active:1});
+        
         this.getUsers();
     }
     async updatepagination(current) {
@@ -56,14 +65,14 @@ class UserList extends React.Component {
         if (current === 'initial') {
             let temparrr = [1, 2, 3];
             await this.setState({ pageno: temparrr, active: 1 });
-            this.props.word === '' ? await this.getUsers() : await this.props.onfilterUsers(this.props.word, this.state.active, this.state.limit);
+            this.props.word === '' ? await this.getUsers() : await this.props.onfilterUsers('email[regex]='+this.props.word+'&page='+this.state.active+'&limit='+this.state.limit+'&isAdmin='+this.props.role);
         }
         if (current === 'final') {
             let temp = max > Math.floor(this.props.total / this.state.limit) ? Math.floor(max) + 1 : Math.floor(max);
             console.log(temp)
             let temparrr = [temp - 2, temp - 1, temp];
             await this.setState({ pageno: temparrr, active: temp });
-            this.props.word === '' ? await this.getUsers() : await this.props.onfilterUsers(this.props.word, this.state.active, this.state.limit);
+            this.props.word === '' ? await this.getUsers() : await this.props.onfilterUsers('email[regex]='+this.props.word+'&page='+this.state.active+'&limit='+this.state.limit+'&isAdmin='+this.props.role);
         }
         if (this.state.pageno[2] < max) {
             if (current === "next") {
@@ -73,7 +82,7 @@ class UserList extends React.Component {
                 }
                 let tempactive = temparr[0];
                 await this.setState({ pageno: temparr, active: tempactive });
-                this.props.word === '' ? await this.getUsers() : await this.props.onfilterUsers(this.props.word, this.state.active, this.state.limit);
+                this.props.word === '' ? await this.getUsers() : await this.props.onfilterUsers('email[regex]='+this.props.word+'&page='+this.state.active+'&limit='+this.state.limit+'&isAdmin='+this.props.role);
             }
         }
         if (current === "prev") {
@@ -84,7 +93,7 @@ class UserList extends React.Component {
                 }
                 let tempactive = temparr[0];
                 await this.setState({ pageno: temparr, active: tempactive });
-                this.props.word === '' ? await this.getUsers() : await this.props.onfilterUsers(this.props.word, this.state.active, this.state.limit);
+                this.props.word === '' ? await this.getUsers() : await this.props.onfilterUsers('email[regex]='+this.props.word+'&page='+this.state.active+'&limit='+this.state.limit+'&isAdmin='+this.props.role);
             }
         }
     }
@@ -149,7 +158,7 @@ class UserList extends React.Component {
                             <Card.Header style={{marginLeft:"0",background: 'transparent',width:"100%",paddingTop:"10px",paddingBottom:"10px"}} className="navbar pcoded-header navbar-expand-lg">
                                         <div style={{background: 'transparent'}} className="collapse navbar-collapse">
                                         <Card.Title as='h5'>Users</Card.Title>
-                                            <NavSearch role={this.state.isAdmin} />
+                                            <NavSearch/>
                                             <Col style={{textAlign:'right'}}>
                                                 <i class="fa fa-users f-20" aria-hidden="true" onClick={()=>{this.setRole('')}}></i>&nbsp; &nbsp; &nbsp;
                                                 <i class="fa fa-user f-20" aria-hidden="true" onClick={()=>{this.setRole(false)}}></i>  &nbsp; &nbsp; &nbsp; 
@@ -190,6 +199,7 @@ const mapStateToProps = (state) => {
         collapseMenu: state.reducer.collapseMenu,
         users: state.userReducer.users,
         total: state.userReducer.totaluser,
+        role:state.userReducer.rolewisefilter,
         message: state.userReducer.message
     }
 }
@@ -200,8 +210,8 @@ const mapDispatchToProps = (dispatch) => {
         onBlock: (email, status, filter) => dispatch(useractions.blockusers(email, status, filter)),
         onDelete: (email, filter) => dispatch(useractions.deleteusers(email, filter)),
         onGetUsers: (filter) => dispatch(useractions.fetchusers(filter)),
-        onfilterUsers: (word,page,limit) => dispatch(useractions.filteruserbyname(word,page,limit))
-
+        onfilterUsers: (word,page,limit) => dispatch(useractions.filteruserbyname(word,page,limit)),
+        onRoleBasedFilter: (isAdmin) =>  dispatch({type: useractions.SET_FILTER_ROLE,payload:isAdmin})
     }
 }
 

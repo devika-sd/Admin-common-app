@@ -7,12 +7,17 @@ export const ADD_USER = "ADD_USER"
 export const ERROR_USER = "ERROR_USER"
 export const FILTER_USER = "FILTER_USER"
 export const RESET_USER = "RESET_USER"
+export const SET_FILTER_ROLE='SET_FILTER_ROLE'
 
-export const filteruserbyname = (name,page,limit) => {
+export const filteruserbyname = (filter) => {
     //add your code
-    console.log("***************"+name,page,limit);
-    var filter = 'email[regex]='+name+'&page='+page+'&limit='+limit;
+    // console.log("***************"+name,page,limit,rolefilter);
+    // var filter = 'email[regex]='+name+'&page='+page+'&limit='+limit+rolefilter;
     console.log("*************"+filter+"************")
+    if(filter.includes("&isAdmin=none"))
+    {
+        filter=filter.replace("&isAdmin=none",'');
+    } 
     return dispatch => {
         fetch('http://localhost:8080/api/v1/users/?sort=name&'+filter , {
             headers: authHeader()

@@ -28,8 +28,10 @@ class SignUp1 extends React.Component {
     }
     passwordCheck(event) {
         let value = event.target.value;
-        if (value.length < 6) {
-            this.setState({ passwordError: "password must be greater than 6 characters", passwordvalid: 0 })
+        var password = new RegExp("^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,12}$",);
+        if (!password.test(value)) {
+            this.setState({ passwordError: "please enter a valid password", passwordvalid: 0 })
+        
         }
         else {
             this.setState({ passwordError: '', passwordvalid: 1 })

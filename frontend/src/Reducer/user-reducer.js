@@ -12,7 +12,8 @@ let initialState = {
     ],
     currentUser: "",
     totaluser: "",
-    message:''
+    message:'',
+    rolewisefilter:'none'
 }
 
 // Reducers in store to modify state -- don't directly manipulate state
@@ -55,6 +56,11 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 users: action.payload.data,
                 totaluser: action.payload.total
+            }
+        case actions.SET_FILTER_ROLE:
+            return {
+                ...state,
+                rolewisefilter:action.payload
             }
         case actions.RESET_USER: return initialState 
         default: return state

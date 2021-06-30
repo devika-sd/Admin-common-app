@@ -12,8 +12,12 @@ class NavSearch extends Component {
         searchWidth: (this.props.windowWidth < 992) ? 100 : 0,
         searchString: (this.props.windowWidth < 992) ? '100px' : '',
         isOpen: (this.props.windowWidth < 992),
-        role:this.props.role
+        isAdmin:''
     };
+    componentDidMount()
+    {
+        this.setState({isAdmin:this.props.role})
+    }
 
     searchOnHandler = () => {
         this.setState({isOpen: true});
@@ -47,17 +51,24 @@ class NavSearch extends Component {
         }, 35);
     };
 
-    changehandler(event)
-    {
-        this.props.onSearch(event.target.value)
-    }
-
     async filterdata(e)
     {
         if(e.target.value.length>=3)
         {
-            this.props.onfilterUsers(e.target.value,1,5);
-            this.props.onSearch(e.target.value);
+            console.log("*&*&*&*&*&*&*&*&*&*"+this.props.role)
+            if(this.props.role === '')
+            {
+                var filter='email[regex]='+e.target.value+'&page='+1+'&limit='+5+'&isAdmin='+this.props.role
+                console.log("*&*&*&*&*&*&*&*&*&*"+this.props.role)
+                this.props.onfilterUsers('email[regex]='+e.target.value+'&page='+1+'&limit='+5);
+                this.props.onSearch(e.target.value);
+            }
+            else
+            {
+                console.log("*&*&*&*&*&*&*&*&*&*"+this.props.role)
+                this.props.onfilterUsers('email[regex]='+e.target.value+'&page='+1+'&limit='+5+'&isAdmin='+this.props.role);
+                this.props.onSearch(e.target.value);
+            }
         }
         else
         {
@@ -70,7 +81,7 @@ class NavSearch extends Component {
         if (this.state.isOpen) {
             searchClass = [...searchClass, 'open'];
         }
-        console.log("******from searchbar*******"+this.state.role)
+        console.log("******from searchbar*******"+this.props.role)
         return (
             <Aux>
                 <div id="main-search" className={searchClass.join(' ')}>
@@ -88,6 +99,11 @@ class NavSearch extends Component {
         );
     }
 }
+const mapStateToProps = (state) => {
+    return {
+        role: state.userReducer.rolewisefilter
+    }
+}
 
 const mapDispatchToProps = dispatch => {
     return {
@@ -97,4 +113,4 @@ const mapDispatchToProps = dispatch => {
     }
 };
 
-export default connect(null, mapDispatchToProps) (windowSize(NavSearch));
+export default connect(mapStateToProps, mapDispatchToProps) (windowSize(NavSearch));

@@ -6,7 +6,7 @@ const AddressSchema = new schema({
     houseNumber: {
         type: Number,
         required: [true, 'Please provide a HouseNumber'],
-        match: [/^[0-9]$/, 'Please provide a valid HouseNumber']
+        match: [/^[0-9]/, 'Please provide a valid HouseNumber']
     },
     locality: {
         type: String,

@@ -20,14 +20,14 @@ const UsersSchema = new schema({
         unique: true,
         trim: true,
         required: [true, 'Please provide a Email'],
-        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please provide a valid Email Address'],
+        match: [/^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/, 'Please provide a valid Email Address'],
         index: true
     },
     password: {
         type: String,
         trim: true,
         required: [true, 'Please provide a Password'],
-        match: [/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,12}$/],
+        match: [/^(?=.[0-9])(?=.[!@#$%^&])[a-zA-Z0-9!@#$%^&]{6,12}$/],
     },
     isAdmin: {
         type: Boolean,
