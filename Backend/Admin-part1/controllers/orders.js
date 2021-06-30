@@ -57,16 +57,7 @@ const ordersCount = asyncHandler(async (req, res) => {
         }
 
     }
-
-    // for (let index = 0; index < statusArr.length; index++) {
-    //     const element = array[index];
-    //     let count = await Orders.count({ status: element })
-    //     statusCount.push(count)
-    //     console.log(count);
-    // }
-    // console.log(statusCount);
     res.json({ success: true, data: statusArr })
-    // res.send('count')
 
 })
 

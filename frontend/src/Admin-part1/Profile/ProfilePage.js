@@ -78,7 +78,7 @@ function ProfilePage(props) {
     }
     const onPasswordChange = (event) => {
         var contactValue = (event.target.value);
-        const expression = new RegExp('^(?=.[0-9])(?=.[!@#$%^&])[a-zA-Z0-9!@#$%^&]{6,12}$');
+        const expression = new RegExp('^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,12}$');
          console.log(expression.test(contactValue));
         if (!(expression.test(contactValue))) {
             setPassword(contactValue)
@@ -92,7 +92,7 @@ function ProfilePage(props) {
 
     const onCPasswordChange = (event) => {
         var contactValue = (event.target.value);
-        const expression = new RegExp('^(?=.[0-9])(?=.[!@#$%^&])[a-zA-Z0-9!@#$%^&]{6,12}$');
+        const expression = new RegExp('^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,12}$');
         console.log(expression.test(contactValue));
         if (!(expression.test(contactValue))) {
             setCPassword(contactValue)
