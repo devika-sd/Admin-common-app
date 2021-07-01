@@ -12,6 +12,7 @@ import {applyMiddleware, combineReducers, createStore} from 'redux';
 import userReducer from './Reducer/user-reducer';
 import authReducer from './Reducer/auth-reducer';
 import orderReducer from './Reducer/order-reducer';
+import bookReducer from './Reducer/book-reducer';
 import thunkMiddleware from 'redux-thunk';
 
 const loggerMiddleware = storeAPI => next => action => {
@@ -22,7 +23,7 @@ const loggerMiddleware = storeAPI => next => action => {
   }
   
 const myEnhancer = applyMiddleware(loggerMiddleware,thunkMiddleware)
-const appStore = createStore(combineReducers({userReducer,authReducer,orderReducer,reducer}) , myEnhancer)
+const appStore = createStore(combineReducers({userReducer,authReducer,orderReducer,reducer,bookReducer}) , myEnhancer)
 
 window.store=appStore;
 

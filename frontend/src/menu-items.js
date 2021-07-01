@@ -1,3 +1,4 @@
+  
 import currentUser from './services/tokendecoder';
 export default {
     items: [
@@ -52,7 +53,7 @@ export default {
                             id: 'booklist',
                             title: 'Book List',
                             type: 'item',
-                            url: '/booklist'
+                            url: '/showbook'
                         },
                         {
                             id: 'addbook',

@@ -208,9 +208,9 @@ class AddUser extends Component {
             <Aux>
                 {this.props.message.includes('ID')&&this.state.notify ? <Notification open={true} variant="error" msg={this.props.message}/> : null}
                 {this.props.message.includes('Number')&&this.state.notify ? <Notification open={true} variant="error" msg={this.props.message}/> : null}
-                {this.props.message.includes('added') ? <Notification open={true} variant='success' msg={this.props.message}/> : null}
-                {this.props.message.includes('already') ? <Notification open={true} variant="error" msg={this.props.message}/> : null}
-                <Row>
+                {this.props.message.includes('added')&&this.state.notify ? <Notification open={true} variant='success' msg={this.props.message}/> : null}
+                {this.props.message.includes('already')&&this.state.notify ? <Notification open={true} variant="error" msg={this.props.message}/> : null}
+               <Row>
                     <Col>
                         <Card>
                             <Card.Header>

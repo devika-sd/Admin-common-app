@@ -23,10 +23,10 @@ const routes = [
     { path: '/userlist', exact: true, name: 'Basic Tabs & Pills', component: UserList },
     { path: '/adduser', exact: true, name: 'Basic Typography', component: AddUser },
     { path: '/profile/:id', exact: true, name: 'Sample Page', component: ProfilePage },
-    { path: '/booklist', exact: true, name: 'Sample Page', component: BookListPage },
+    { path: '/showbook', exact: true, name: 'Sample Page', component: BookListPage },
     { path: '/addbook', exact: true, name: 'Sample Page', component: AddBookPage },
     { path: '/orderModel', exact: true, name: 'Sample Page', component: OrdersModel },
-    { path: '/viewbook', exact: true, name: 'Sample Page', component: ViewBookPage }
+    { path: '/viewbook/:id', exact: true, name: 'Sample Page', component: ViewBookPage }
 ];
 
 export default routes;

@@ -7,7 +7,7 @@ const databaseConnection=require('./db');
 const userRoute = require('./Admin-part1/routes/users');
 const orderRoute = require('./Admin-part1/routes/orders');
 require('dotenv').config();
-
+const bookRoute = require('./Admin-part2/routes/book');
 
 app.use(cors());
 
@@ -27,7 +27,7 @@ databaseConnection();
 
 app.use("/api/v1/users",userRoute);
 app.use("/api/v1/orders",orderRoute);
-
+app.use("/api/v1/book", bookRoute);
 
 app.use(errorHandler);
 
