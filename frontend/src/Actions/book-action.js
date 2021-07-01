@@ -6,6 +6,9 @@ export const FETCH_BOOKS = "FETCH_BOOKS"
 export const UPDATE_BOOK = "UPDATE_BOOK"
 export const FETCH_BOOKS_BY_TITLE = "FETCH_BOOKS_BY_TITLE"
 export const FILTER_BOOK = "FILTER_BOOK"
+export const FETCH_BOOK_COUNT = "FETCH_BOOK_COUNT"
+
+
 const saveBook = (book) => {
     return {
         type: ADD_BOOK,
@@ -136,6 +139,22 @@ export const filterbookbytitle = (title,page,limit) => {
                 //this.setState({ users: data.data })
                 console.log(data)
                 dispatch({ type: FILTER_BOOK, payload: data });
+            })
+    }
+}
+
+export const fetchBookCatogryCount = () => {
+
+    return dispatch => {
+        fetch('http://localhost:8080/api/v1/book/chart/piechart', {
+            headers: authHeader()
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log("********FETCH_BOOK_COUNT******")
+                console.log(data.data);
+
+                dispatch({ type: FETCH_BOOK_COUNT, payload: data.data });
             })
     }
 }

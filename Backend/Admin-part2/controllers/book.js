@@ -30,8 +30,8 @@ const fetchBooksByTitle = asyncHandler(async (req, res, next) => {
 
     const books = await Book.findOne({ title: req.params.title })
 
-    if (!bookDel) throw new Error(`Book Title(${req.params.title}) is not found`)
-    res.status(200).json({ success: true, data: bookDel,message:"Book is found" })
+    if (!books) throw new Error(`Book Title(${req.params.title}) is not found`)
+    res.status(200).json({ success: true, data: books,message:"Book is found" })
 
 })
 
@@ -60,4 +60,31 @@ const updateBookDetails = asyncHandler(async (req, res, next) => {
         });
         
 });
-module.exports = {addBook, fetchAllBook, deleteBooksByTitle, updateBookDetails, fetchBooksByTitle};
+
+const categoryforPie = asyncHandler(async (req, res) => {
+    
+    const statusArr = [
+        { "horror": 0 },
+        { "comedy": 0 },
+        { "adventure": 0 },
+        { "fiction": 0 },
+        { "ancient": 0 },
+        { "sciencefiction": 0 },
+        { "thriller": 0 },
+        { "spritual": 0 },
+        { "classic": 0 }
+    ]
+    for (let index = 0; index < statusArr.length; index++) {
+        const element = statusArr[index];
+        for (var key in element) {
+            let count = await Book.count({ category: key.toLowerCase() })
+            console.log(key + "-->  " + count);
+            statusArr[index][key] = count
+        }
+
+    }
+    console.log(statusArr)
+    res.json({ success: true, data: statusArr })
+
+})
+module.exports = {addBook, fetchAllBook, deleteBooksByTitle, updateBookDetails, fetchBooksByTitle, categoryforPie};

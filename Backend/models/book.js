@@ -21,6 +21,7 @@ const BookSchema = new schema({
         trim: true,
         required: [true, 'Please provide a Category'],
         match: [/[a-zA-Z]{2,}/, 'Please provide a valid Category'],
+        enum: ["horror", "comedy", "adeventure", "fiction", "ancient", "sciencefiction", "thriller", "spritual", "classic" ],
         index: true
     },
     isbn: {

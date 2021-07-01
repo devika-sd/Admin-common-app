@@ -13,6 +13,17 @@ let initialState = {
             available:''
         }
     ],
+    BookCountPie : [
+        { horror: 0 },
+        { comedy: 0 },
+        { adventure: 0 },
+        { fiction: 0 },
+        { ancient: 0 },
+        { sciencefiction: 0 },
+        { thriller: 0 },
+        { spritual: 0 },
+        { classic: 0 }
+    ],
     totalbook: "",
     message:''
 }
@@ -52,6 +63,12 @@ const reducer = (state = initialState, action) => {
                 books: action.payload.data,
                 totalbook: action.payload.total,
                 }
+        case actions.FETCH_BOOK_COUNT:
+            return {
+                ...state,
+                BookCountPie: action.payload,
+
+            }
         case actions.FILTER_BOOK:
             return {
                 ...state,
