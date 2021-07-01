@@ -5,9 +5,13 @@ import { Card, Form, Button, Row, Col } from 'react-bootstrap'
 import { Table } from 'react-bootstrap'
 import { useParams } from "react-router-dom"
 import { connect } from 'react-redux';
-import * as orderactions from '../../Actions/order-action';
 import Notification from '../../Admin-part1/Notification/Notification';
 import { useHistory } from "react-router";
+
+import Aux from "../../hoc/_Aux";
+import avatar2 from '../../assets/images/user/avatar-2.jpg';
+
+import * as bookactions from '../../Actions/book-action';
 
 
 function getModalStyle() {
@@ -29,23 +33,42 @@ const useStyles = makeStyles((theme) => ({
 
 function ViewBook(props) {
     console.log(props.location.order);
+    let { id } = useParams();
     const history = useHistory();
     const classes = useStyles();
     var [modalStyle] = useState(getModalStyle);
     var [open, setOpen] = useState(true);
     let { orderid } = useParams();
-    const [email, setemail] = useState("test@gmail.com");
-    const [paymentType, setPayment] = useState("online");
+    const [title, setTitle] = useState('');
+    const [titleTemp, setTitleTemp] = useState('');
+    const [authors, setAuthors] = useState('');
     let newdate = new Date();
-    const [dateTime, setDateTime] = useState(newdate.toLocaleString());
-    const [address, setAddress] = useState("india");
-    const [phonenumber, setContact] = useState(8974561234);
-    const [amount, setAmount] = useState(100000);
-    const [bookname, setBookname] = useState('');
+    const [publishDate, setPublishDate] = useState('');
+    const [isbn, setIsbn] = useState('');
+    const [price, setPrice] = useState('');
+    const [discount, setDiscount] = useState('');
+    const [category, setCategory] = useState('');
+    const [available, setAvailable] = useState('');
     const [status, setStatus] = useState("new");
     const [notify,setNotify] = useState(false);
 
     const [enable, setEnable] = useState(true)
+    const [titleError, setTitleError] = useState(true)
+    const [isbnError, setIsbnError] = useState(true)
+    const [categoryError, setCategoryError] = useState(true)
+    const [authorsError, setAuthorsError] = useState(true)
+    const [priceError, setPriceError] = useState(true)
+    const [discountError, setDiscountError] = useState(true)
+    const [availableError, setAvailableError] = useState(true)
+    const [publishDateError, setPublishdateError] = useState(true)
+    const [titleErrorMsg, setTitleErrorMsg] = useState('')
+    const [isbnErrorMsg, setIsbnErrorMsg] = useState('')
+    const [categoryErrorMsg, setCategoryErrorMsg] = useState('')
+    const [authorsErrorMsg, setAuthorsErrorMsg] = useState('')
+    const [priceErrorMsg, setPriceErrorMsg] = useState('')
+    const [discountErrorMsg, setDiscountErrorMsg] = useState('')
+    const [availableErrorMsg, setAvailableErrorMsg] = useState('')
+    const [publishDateErrorMsg, setPublishdateErrorMsg] = useState('')
 
 
     const handleopen = () => {
@@ -54,21 +77,48 @@ function ViewBook(props) {
     const handleClose = () => {
         setOpen(false);
         setNotify(false);
-        history.push('/orderlist');
+        history.push('/showbook');
 
     }
 
     const checkClose = () => {
         handleClose();
     }
+   
+    useEffect(() => {
+        (async () => {
+            await props.onGetBooks();
+           
+           // let date = new Date(props.books[0].publishDate);
+//date.getFullYear()+'-' + (date.getMonth()+1) + '-'+date.getDate();
+         //   console.log("jjjj "+date.getFullYear()+'-' + (date.getMonth()+1) + '-'+date.getDate())
+            setTitle(props.books[id].title)
+            setTitleTemp(props.books[id].title)
+            setCategory(props.books[id].category)
+            setIsbn(props.books[id].isbn)
+            setPrice(props.books[id].price)
+            setDiscount(props.books[id].discount)
+            setAvailable(props.books[id].available)
+           // var d = new Date(date.getFullYear(), (date.getMonth()+1), date.getDate());
+            setPublishDate(props.books[id].publishDate)
+            setAuthors(props.books[id].authors)
+            
+        })();
 
-    const Update = async (e) => {
+
+
+       
+    }, [id,id])
+    var check = true;
+    const update = async (event) => {
         setNotify(true);
-        let roleData = { status: status }
-        console.log(roleData)
+   
+        let bookData = { title, category, authors, isbn, price, discount, available, publishDate}
+    
+        props.onUpdate(titleTemp, bookData)
         setEnable(true)
-        
     }
+
     const Edit = (event) => {
         console.log('Edit')
         setEnable(false)
@@ -83,11 +133,132 @@ function ViewBook(props) {
         console.log(e.target.value);
         setStatus(e.target.value);
     }
+    const onTitleChange = (event) => {
+        var titleValue = (event.target.value)
+        const expression = new RegExp('^[a-zA-Z]{1}[a-zA-Z0-9\\s]{2,20}$');
+        
+        if (!(expression.test(titleValue))) {
+            setTitle(titleValue)
+            setTitleError(false)
+    
+            setTitleErrorMsg('please enter a valid book title');
+        }
+        else {
+            setTitle(titleValue)
+            setTitleError(true)
+            setTitleErrorMsg('');
+            check = false;
+        }
+    }
 
+    const onCategoryChange = (event) => {
+        var categoryValue = (event.target.value)
+        const expression = new RegExp('^[a-zA-Z]{1}[a-zA-Z0-9\\s]{2,20}$');
+        
+        if (!(expression.test(categoryValue))) {
+            setCategory(categoryValue)
+            setCategoryError(false)
+            setCategoryErrorMsg('please enter a valid category');
+        }
+        else {
+            setCategory(categoryValue)
+            setCategoryError(true)
+            setCategoryErrorMsg('');
+            check = false;
+        }
+    }
+
+    const onAuthorsChange = (event) => {
+        var authorsValue = (event.target.value)
+        const expression = new RegExp('^[a-zA-Z]{1}[a-zA-Z0-9\\s]{4,20}$');
+        
+        if (!(expression.test(authorsValue))) {
+            setAuthors(authorsValue)
+            setAuthorsError(false)
+            setAuthorsErrorMsg('please enter a valid author name')
+        }
+        else {
+            setAuthors(authorsValue)
+            setAuthorsError(true)
+            check = false;
+            setAuthorsErrorMsg('')
+        }
+    }
+
+    const onIsbnChange = (event) => {
+        var value = (event.target.value)
+        
+        if (value.length >13 || value.length<10) {
+            setIsbn(value)
+            setIsbnError(false)
+            setIsbnErrorMsg('isbn number should be 10 to 13 digits long')
+        }
+        else {
+            setIsbn(value)
+            setIsbnError(true)
+            setIsbnErrorMsg('')
+            check = false;
+        }
+    }
+
+    const onPriceChange = (event) => {
+        var value = (event.target.value)
+        
+        if (value<=0) {
+            setPrice(value)
+            setPriceError(false)
+            setPriceErrorMsg('Price should be greater than 0')
+        }
+        else {
+            setPrice(value)
+            setPriceError(true)
+            setPriceErrorMsg('')
+            check = false;
+        }
+    }
+
+    
+    const onAvailableChange = (event) => {
+        var value = (event.target.value)
+        
+        if (value<0) {
+            setAvailable(value)
+            setAvailableError(false)
+            setAvailableErrorMsg('Availability should be a positive number')
+        }
+        else {
+            setAvailable(value)
+            setAvailableError(true)
+            setAvailableErrorMsg('')
+            check = false;
+        }
+    }
+
+    const onDiscountChange = (event) => {
+        var value = (event.target.value)
+        
+        if (value<0 || value > 50) {
+            setDiscount(value)
+            setDiscountError(false)
+            setDiscountErrorMsg('Discount should be less than 50')
+        }
+        else {
+            setDiscount(value)
+            setDiscountError(true)
+            setDiscountErrorMsg('')
+            check = false;
+        }
+    }
+   
+        
     return (
         <div>
             {/* {props.message.includes('updated')&&notify ? <Notification open={true} variant='success' msg={props.message}/> : null} */}
-
+            
+            {props.message.includes('Book details not updated') ? <Notification open={true} variant='error' msg={props.message}/> : null}
+                 {props.message.includes('Book details updated successfully') ? <Notification open={true} variant="success" msg={props.message}/> : null}
+                 {props.message.includes('authors') ? <Notification open={true} variant="success" msg={"Author Name should be at least 4 Character Long"}/> : null}
+             
             <Modal
                 open={open}
                 aria-labelledby="simple-modal-title"
@@ -120,114 +291,67 @@ function ViewBook(props) {
                                         <Col md={6}>
                                             <Form>
                                                 <Form.Group controlId="formBasicEmail">
-                                                    <Form.Label>Email</Form.Label>
-                                                    <Form.Control type="text" value={email} placeholder="Enter Email" />
+                                                    <Form.Label>Title</Form.Label>
+                                                    <Form.Control type="text" value={title} onChange={onTitleChange} placeholder="Enter Title" />
+                                                    <p className="help-block text-danger">{titleErrorMsg}</p>
                                                 </Form.Group>
-
                                                 <Form.Group controlId="formBasicEmail">
-                                                    <Form.Label>Payment Type</Form.Label>
-                                                    <Form.Control type="text" value={paymentType} placeholder="Enter Payment type" />
+                                                
+                                                    <Form.Control type="hidden" value={titleTemp} onChange={onTitleChange} placeholder="Enter Title" />
                                                 </Form.Group>
-
                                                 <Form.Group controlId="formBasicEmail">
-                                                    <Form.Label>Status</Form.Label>
-                                                    <Form.Control type="text" value={status} placeholder="Enter Status" />
+                                                    <Form.Label>ISBN</Form.Label>
+                                                    <Form.Control type="number" value={isbn} onChange={onIsbnChange} placeholder="Enter ISBN" />
+                                                    <p className="help-block text-danger">{isbnErrorMsg}</p>
                                                 </Form.Group>
-
+                                                <Form.Group controlId="formBasicEmail">
+                                                    <Form.Label>Price</Form.Label>
+                                                    <Form.Control type="number" value={price} onChange={onPriceChange} placeholder="Enter Price" />
+                                                    <p className="help-block text-danger">{priceErrorMsg}</p>
+                                                </Form.Group>
+                                                <Form.Group controlId="formBasicEmail">
+                                                    <Form.Label>Publish Date</Form.Label>
+                                                    <Form.Control type="text" value={publishDate}  placeholder="Enter Publish Date" />
+                                                    <p className="help-block text-danger">{publishDateErrorMsg}</p>
+                                                </Form.Group>
 
                                             </Form>
                                         </Col>
 
                                         <Col md={6}>
 
-                                            <Form.Group controlId="formBasicEmail">
-                                                <Form.Label>Date Time</Form.Label>
-                                                <Form.Control type="text" value={dateTime} placeholder="Enter Date and time" />
-                                            </Form.Group>
+                                        <Form>
+                                                <Form.Group controlId="formBasicEmail">
+                                                    <Form.Label>Categoy</Form.Label>
+                                                    <Form.Control type="text" value={category} onChange={onCategoryChange} placeholder="Enter Category" />
+                                                    <p className="help-block text-danger">{categoryErrorMsg}</p>
+                                                </Form.Group>
 
-                                            <Form.Group controlId="formBasicEmail">
-                                                <Form.Label>Amount</Form.Label>
-                                                <Form.Control type="text" value={amount} placeholder="Enter Address" />
-                                            </Form.Group>
+                                                <Form.Group controlId="formBasicEmail">
+                                                    <Form.Label>Author Name</Form.Label>
+                                                    <Form.Control type="text" value={authors} onChange={onAuthorsChange} placeholder="Enter Author Name" />
+                                                    <p className="help-block text-danger">{authorsErrorMsg}</p>
+                                                </Form.Group>
+                                                <Form.Group controlId="formBasicEmail">
+                                                    <Form.Label>Discount</Form.Label>
+                                                    <Form.Control type="number" value={discount} onChange={onDiscountChange} placeholder="Enter Discount" />
+                                                    <p className="help-block text-danger">{discountErrorMsg}</p>
+                                                </Form.Group>
+                                                <Form.Group controlId="formBasicEmail">
+                                                    <Form.Label>Available Stock</Form.Label>
+                                                    <Form.Control type="number" value={available} onChange={onAvailableChange} placeholder="Enter Available Stock" />
+                                                    <p className="help-block text-danger">{availableErrorMsg}</p>
+                                                </Form.Group>
 
-                                            <Form.Group controlId="formBasicEmail">
-                                                <Form.Label>Address</Form.Label>
-                                                <Form.Control as="textarea" value={address} placeholder="Enter Address" />
-                                            </Form.Group>
+                                            </Form>
 
                                         </Col>
                                         
-                                        <Button style={{ width: "90px", margin: 'auto' }} onClick={Edit} variant="primary">EDIT</Button>
+                                        <Button  style={{ width: "90px", margin: 'auto' }} onClick={update} variant="primary">UPDATE</Button>
                                     </Row>
                                 }
 
-                                {!enable &&
-                                    <Row>
-                                        <Col md={4}>
-                                            <Form>
-                                                <Form.Group controlId="formBasicEmail">
-                                                    <Form.Label>Status</Form.Label>
-                                                </Form.Group>
-                                            </Form>
-                                        </Col>
-
-                                        <Col md={3} key='status' onChange={onChangeRadio}>
-
-                                            <Form.Check
-                                                type='radio'
-                                                id='status'
-                                                name="group1"
-                                                label='New'
-                                                value='new'
-                                            />
-                                            <Form.Check
-                                                type='radio'
-                                                id='status'
-                                                name="group1"
-                                                label='Packed'
-                                                value='packed'
-                                            />
-                                            <Form.Check
-                                                type='radio'
-                                                id='status'
-                                                name="group1"
-                                                label='Shipped'
-                                                value='shipped'
-                                            />
-                                        </Col>
-                                        <Col md={2} key='status' onChange={onChangeRadio}>
-
-                                            <Form.Check
-                                                type='radio'
-                                                id='status'
-                                                name="group1"
-                                                label='Completed'
-                                                value='completed'
-                                            />
-                                            <Form.Check
-                                                type='radio'
-                                                id='status'
-                                                name="group1"
-                                                label='Delayed'
-                                                value='delayed'
-                                            />
-                                            <Form.Check
-                                                type='radio'
-                                                id='status'
-                                                name="group1"
-                                                label='Cancelled'
-                                                value='cancelled'
-                                            />
-                                        </Col>
-                                        <Col sm={12} md={12} style={{width:'100%',textAlign:'center'}}>
-                                            <div style={{marginTop:'50px'}}>
-                                            <Button style={{ width: "90px", marginTop: '50px', margin:'10px' }} onClick={cancel} variant="primary">CANCEL</Button>
-                                            <Button style={{ width: "90px", marginTop: '50px', margin:'10px'  }} onClick={Update} variant="primary">UPDATE</Button>
-
-                                            </div>
-                                        </Col>
-                                    </Row>
-                                }
+                               
 
 
                             </Card.Text>
@@ -239,5 +363,22 @@ function ViewBook(props) {
     )
 }
 
+const mapStateToProps = (state) => {
+    return {
+        books: state.bookReducer.books,
+        authenticated: state.authReducer.authenticated,
+        currentuser:state.userReducer.currentUser,
+        message:state.bookReducer.message
+    }
+}
 
-export default ViewBook;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onUpdate: (title, bookData) => dispatch(bookactions.updatebooks(title, bookData)),
+        onGetBooks: () => dispatch(bookactions.fetchbooks())
+
+    }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(ViewBook);

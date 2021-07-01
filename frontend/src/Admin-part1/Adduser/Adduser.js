@@ -4,7 +4,6 @@ import { Row, Col, Card, Form, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import * as actions from '../../Actions/user-action';
 import Aux from "../../hoc/_Aux";
-import Notification from '../Notification/Notification';
 
 class AddUser extends Component {
     constructor() {
@@ -18,7 +17,7 @@ class AddUser extends Component {
             "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jharkhand", "Karnataka",
             "Kerala", "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram",
             "Nagaland", "Odisha", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana",
-            "Tripura", "Uttar Pradesh", "Uttarakhand", "West Bengal"], select:'', selectvalid : 0,notify:false
+            "Tripura", "Uttar Pradesh", "Uttarakhand", "West Bengal"], select:'', selectvalid : 0
         };
     }
 
@@ -183,17 +182,7 @@ class AddUser extends Component {
         let user = { name: this.state.name, email: this.state.email, password: this.state.password, phone: this.state.phonenumber,isAdmin: this.state.role,addresses:[{houseNumber:this.state.housenumber,city:this.state.city,locality:this.state.locality,country:this.state.country,state:this.state.select,pinCode:this.state.pincode}] };
         console.log(user)
         await this.props.onAddUser(user);
-        if(this.props.message.length>0)
-        {
-            await this.setState({notify:true})
-            setTimeout(()=>{
-                this.setState({notify:false})
-            },2000)
-        }
-        else
-        {
-            this.setState({notify:false})
-        }
+        
     }
 
 
@@ -206,11 +195,7 @@ class AddUser extends Component {
         
         return (
             <Aux>
-                {this.props.message.includes('ID')&&this.state.notify ? <Notification open={true} variant="error" msg={this.props.message}/> : null}
-                {this.props.message.includes('Number')&&this.state.notify ? <Notification open={true} variant="error" msg={this.props.message}/> : null}
-                {this.props.message.includes('added')&&this.state.notify ? <Notification open={true} variant='success' msg={this.props.message}/> : null}
-                {this.props.message.includes('already')&&this.state.notify ? <Notification open={true} variant="error" msg={this.props.message}/> : null}
-               <Row>
+                <Row>
                     <Col>
                         <Card>
                             <Card.Header>

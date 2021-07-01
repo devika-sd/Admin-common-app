@@ -5,6 +5,7 @@ export const UPDATE_ORDERS = "UPDATE_ORDERS"
 export const ERROR_ORDERS = "ERROR_ORDERS"
 export const RESET_ORDERS = "RESET_ORDERS"
 export const FETCH_STATUS_COUNT = "FETCH_STATUS_COUNT"
+export const RESET_MESSAGE='RESET_MESSAGE'
 
 const URL ="http://localhost:8080/api/v1/orders/";
 

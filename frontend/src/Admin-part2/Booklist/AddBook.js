@@ -21,7 +21,7 @@ class AddBook extends Component {
         let value = event.target.value
         const name = new RegExp('[a-zA-Z\s]{2,20}')
         if (!name.test(value)) {
-            this.setState({ titleError: "please enter a valid book name", titlevalid: 0 })
+            this.setState({ titleError: "please enter a valid book title", titlevalid: 0 })
         }
         else {
             this.setState({ titleError: '', titlevalid: 1 })

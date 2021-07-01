@@ -6,7 +6,6 @@ import { Table } from 'react-bootstrap'
 import { useParams } from "react-router-dom"
 import { connect } from 'react-redux';
 import * as orderactions from '../../Actions/order-action';
-import Notification from '../Notification/Notification';
 import { useHistory } from "react-router";
 
 
@@ -46,7 +45,6 @@ function Ordermodel(props) {
     const [amount, setAmount] = useState(order.amount);
     const [bookname, setBookname] = useState('');
     const [status, setStatus] = useState(order.status);
-    const [notify,setNotify] = useState(false);
 
     const [enable, setEnable] = useState(true)
 
@@ -56,7 +54,6 @@ function Ordermodel(props) {
     }
     const handleClose = () => {
         setOpen(false);
-        setNotify(false);
         history.push('/orderlist');
 
     }
@@ -66,7 +63,6 @@ function Ordermodel(props) {
     }
 
     const Update = async (e) => {
-        setNotify(true);
         let roleData = { status: status }
         console.log(roleData)
         setEnable(true)
@@ -100,7 +96,6 @@ function Ordermodel(props) {
 
     return (
         <div>
-            {props.message.includes('updated')&&notify ? <Notification open={true} variant='success' msg={props.message}/> : null}
 
             <Modal
                 open={open}

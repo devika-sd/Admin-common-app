@@ -40,6 +40,11 @@ const reducer = (state = initialState, action) =>{
                 orderStatusCount: action.payload,
 
             }
+        case actions.RESET_MESSAGE:
+            return {
+                ...state,
+                message:action.payload
+            }
         case actions.RESET_ORDERS: return initialState
         default : return state
     }

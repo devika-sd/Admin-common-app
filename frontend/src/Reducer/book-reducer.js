@@ -39,7 +39,25 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 message: action.payload.message
             }
-    
+        case actions.UPDATE_BOOK: 
+            return {
+                ...state,
+                books: action.payload.data,
+                message: action.payload.message
+            }
+        case actions.FETCH_BOOKS_BY_TITLE:
+            return {
+                ...state,                   
+                message: action.payload.message,
+                books: action.payload.data,
+                totalbook: action.payload.total,
+                }
+        case actions.FILTER_BOOK:
+            return {
+                ...state,
+                books: action.payload.data,
+                totalbook: action.payload.total
+            }
         default: return state
     }
 

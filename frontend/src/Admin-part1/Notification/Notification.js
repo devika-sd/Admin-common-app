@@ -1,8 +1,12 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
+import * as useractions from '../../Actions/user-action'
+import * as orderactions from '../../Actions/order-action'
+
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -17,11 +21,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CustomizedSnackbars(props) {
+function CustomizedSnackbars(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(props.open);
   const [variant,setVariant]= React.useState(props.variant);
-  const [msg,setMsg]= React.useState(props.msg);
+  const [msg,setMsg]= React.useState("");
   const [state, setState] = React.useState({
     vertical: 'top',
     horizontal: 'center',
@@ -39,6 +43,18 @@ export default function CustomizedSnackbars(props) {
 
     setOpen(false);
   };
+  useEffect(() => {
+    var mes=props.message1||props.message2
+    console.log("mes",mes);
+    console.log("selected message is ",props.message1||props.message2)
+    setMsg(mes)
+    setOpen(true)
+    setTimeout(()=>{
+      props.userResetmessage("");
+      props.orderResetmessage("");
+      setMsg("");
+    },2000)
+}, [props.message1,props.message2])
 
   return (
     <div className={classes.root}>
@@ -54,3 +70,18 @@ export default function CustomizedSnackbars(props) {
     </div>
   );
 }
+const mapStateToProps = (state) => {
+  console.log("from notification",state.orderReducer.message)
+  return {
+      message1: state.userReducer.message,
+      message2: state.orderReducer.message
+  }        
+
+}
+const mapDispatchToProps = (dispatch) => {
+  return {
+    userResetmessage: (reset)=>  dispatch({type: useractions.RESET_MESSAGE,payload:reset}),
+    orderResetmessage: (reset)=>  dispatch({type: orderactions.RESET_MESSAGE,payload:reset})
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(CustomizedSnackbars);

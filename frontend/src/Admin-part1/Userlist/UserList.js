@@ -20,13 +20,13 @@ import Notification from '../Notification/Notification';
 class UserList extends React.Component {
     constructor(props) {
         super(props)
-        this.state = { users: [], word: '', active: 1, maxpage: 1, limit: 5, pageno: [1, 2, 3], open: false,isAdmin:'' }
+        this.state = { users: [], word: props.word, active: 1, maxpage: 1, limit: 5, pageno: [1, 2, 3], open: false,isAdmin:'' }
     }
 
     componentDidMount() {
        this.getUsers();
     }
-
+    
     async changepage(value) {
         await this.setState({ active: value });
         this.props.word === '' ? await this.getUsers() : await this.props.onfilterUsers('email[regex]='+this.props.word+'&page='+this.state.active+'&limit='+this.state.limit+'&isAdmin='+this.props.role);
@@ -53,7 +53,7 @@ class UserList extends React.Component {
         {
             this.props.onRoleBasedFilter(value);
         }
-        await this.setState({isAdmin:value,active:1});
+        await this.setState({isAdmin:value,active:1,pageno:[1,2,3]});
         
         this.getUsers();
     }
@@ -100,10 +100,24 @@ class UserList extends React.Component {
 
     onDeleteUser(email) {
         this.props.onDelete(email, "page=" + this.state.active + "&limit=" + this.state.limit);
+        // if(this.props.message.length>0)
+        // {
+        //     this.setState({notify:<Notification open={true} variant="info"/>})
+        //     setTimeout(()=>{
+        //         this.setState({notify:null})
+        //     },4000)
+        // }
     }
 
     onBlockUser(email, status) {
         this.props.onBlock(email, status, "page=" + this.state.active + "&limit=" + this.state.limit);
+        // if(this.props.message.length>0)
+        // {
+        //     this.setState({notify:<Notification open={true} variant="info"/>})
+        //     setTimeout(()=>{
+        //         this.setState({notify:null})
+        //     },4000)
+        // }
     }
     onUpdateUser(id) {
         this.props.history.push("/updateuser/" + id);
@@ -149,10 +163,8 @@ class UserList extends React.Component {
         })
         return (
             <Aux>
-                {this.props.message.includes('Unblocked') ? <Notification open={true} variant="info" msg={this.props.message}/> : null}
-                {this.props.message.includes('user is blocked') ? <Notification open={true} variant="warning" msg={this.props.message}/> : null}
-                {this.props.message.includes('deleted') ? <Notification open={true} variant='error' msg={this.props.message}/> : null}
-                <Row>
+                {/* {this.state.notify} */}
+               <Row>
                     <Col md={12} xl={12}>
                         <Card className='Recent-Users'>
                             <Card.Header style={{marginLeft:"0",background: 'transparent',width:"100%",paddingTop:"10px",paddingBottom:"10px"}} className="navbar pcoded-header navbar-expand-lg">

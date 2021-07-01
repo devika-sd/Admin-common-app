@@ -8,6 +8,7 @@ export const ERROR_USER = "ERROR_USER"
 export const FILTER_USER = "FILTER_USER"
 export const RESET_USER = "RESET_USER"
 export const SET_FILTER_ROLE='SET_FILTER_ROLE'
+export const RESET_MESSAGE='RESET_MESSAGE'
 
 export const filteruserbyname = (filter) => {
     //add your code

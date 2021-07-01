@@ -62,6 +62,11 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 rolewisefilter:action.payload
             }
+        case actions.RESET_MESSAGE:
+            return {
+                ...state,
+                message:action.payload
+            }
         case actions.RESET_USER: return initialState 
         default: return state
     }

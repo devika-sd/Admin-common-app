@@ -8,6 +8,8 @@ import Loader from './layout/Loader'
 import Aux from "../hoc/_Aux";
 import ScrollToTop from './layout/ScrollToTop';
 import routes from "../route";
+import Notification from '../Admin-part1/Notification/Notification';
+import { connect } from 'react-redux';
 
 const AdminLayout = Loadable({
     loader: () => import('./layout/AdminLayout'),
@@ -15,6 +17,7 @@ const AdminLayout = Loadable({
 });
 
 class App extends Component {
+    
     render() {
         const menu = routes.map((route, index) => {
           return (route.component) ? (
@@ -31,6 +34,7 @@ class App extends Component {
 
         return (
             <Aux>
+                {(this.props.message1.length>0 || this.props.message2.length>0 ) ?<Notification variant="info"/>:null}
                 <ScrollToTop>
                     <Suspense fallback={<Loader/>}>
                         <Switch>
@@ -44,4 +48,12 @@ class App extends Component {
     }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+
+    return {
+        message1: state.userReducer.message,
+        message2: state.orderReducer.message
+    }
+}
+
+export default connect(mapStateToProps, null)(App);

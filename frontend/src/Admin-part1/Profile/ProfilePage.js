@@ -7,7 +7,6 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from "react-router-dom"
 import { connect } from 'react-redux';
 import * as useractions from '../../Actions/user-action';
-import Notification from '../Notification/Notification';
 
 
 function ProfilePage(props) {
@@ -19,7 +18,6 @@ function ProfilePage(props) {
     const [cpassword, setCPassword] = useState('');
     const [oldPassword, setOldPassword] = useState('');
     const [phone, setContact] = useState('');
-    const [notify,setNotify] = useState(false);
 
     const [enable, setEnable] = useState(true)
     const [passwordEnable, setPasswordEnable] = useState(false)
@@ -119,7 +117,6 @@ function ProfilePage(props) {
     }
 
     const Update = async (event) => {
-        setNotify(true);
         if (password.localeCompare(cpassword) === 0) {
 
             let roleData = { name, email, password, address, phone }
@@ -138,7 +135,6 @@ function ProfilePage(props) {
     const Edit = (event) => {
         console.log('Edit')
         setEnable(false)
-        setNotify(false)
         // FetchCalls.registerUser(roleData)
         // event.preventDefault()
     }
@@ -170,8 +166,7 @@ function ProfilePage(props) {
     }
     return (
         <Aux>
-            {props.message.includes('updated')&&notify ? <Notification open={true} variant='success' msg={props.message}/> : null}
-            {/* {props.message.includes('Please')&&notify ? <Notification open={true} variant='error' msg={props.message}/> : null} */}
+            
             <Row>
                 <Col md={4} xl={4}>
                     <Card className='card-event'>
