@@ -13,6 +13,7 @@ class AddBook extends Component {
             title: '', isbn: '', category: '', authors: '', price:'', available:'', discount:'', publishDate:'', titleError: '', categoryError: '', isbnError: '',
             authorsError: '', titlevalid: 0, isbnvalid: 0, categoryvalid: 0, authorsvalid: 0,
             pricevalid: 0, priceError: '', publishDatevalid: 0, availablevalid : 0, discountvalid :0,
+            categories:["horror", "comedy", "adeventure", "fiction", "ancient", "sciencefiction", "thriller", "spritual", "classic" ],
             publishDateError:'', availableError:'', discountError:'', select:'', selectvalid : 0,notify:false
         };
     }
@@ -31,10 +32,10 @@ class AddBook extends Component {
 
     category(event) {
         let value = event.target.value
-        const name = new RegExp('[a-zA-Z\s]{2,20}')
-        if (!name.test(value)) {
-            this.setState({ categoryError: "please enter a valid category", categoryvalid: 0 })
+        if (value ==="") {
+            this.setState({categoryError: "please enter a valid category", categoryvalid: 0});
         }
+
         else {
             this.setState({ categoryError: '', categoryvalid: 1 })
         }
@@ -181,7 +182,13 @@ class AddBook extends Component {
                                     <Col md={6}>
                                         <Form.Group controlId="exampleForm.ControlInput1">
                                             <Form.Label>Category</Form.Label>
-                                            <Form.Control type="text" onChange={this.category.bind(this)} placeholder="Enter Category" />
+                                            {/* <Form.Control type="text" onChange={this.category.bind(this)} placeholder="Enter Category" /> */}
+                                            <Form.Control onChange={this.category.bind(this)} as="select">
+                                                    <option value="">Select Category</option>
+                                                    {this.state.categories.map(data =>(
+                                                        <option title={data}>{data}</option>
+                                                    ))}
+                                                </Form.Control>
                                             <p className="help-block text-danger">{this.state.categoryError}</p>
                                         </Form.Group>
 
