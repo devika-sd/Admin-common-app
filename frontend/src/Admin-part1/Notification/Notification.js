@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import * as useractions from '../../Actions/user-action'
 import * as orderactions from '../../Actions/order-action'
-
+import * as bookactions from '../../Actions/book-action'
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -44,17 +44,18 @@ function CustomizedSnackbars(props) {
     setOpen(false);
   };
   useEffect(() => {
-    var mes=props.message1||props.message2
+    var mes=props.message1||props.message2||props.message3
     console.log("mes",mes);
-    console.log("selected message is ",props.message1||props.message2)
+    console.log("selected message is ",props.message1||props.message2||props.message3)
     setMsg(mes)
     setOpen(true)
     setTimeout(()=>{
       props.userResetmessage("");
       props.orderResetmessage("");
+      props.bookResetmessage('');
       setMsg("");
     },2000)
-}, [props.message1,props.message2])
+}, [props.message1,props.message2,props.message3])
 
   return (
     <div className={classes.root}>
@@ -74,14 +75,16 @@ const mapStateToProps = (state) => {
   console.log("from notification",state.orderReducer.message)
   return {
       message1: state.userReducer.message,
-      message2: state.orderReducer.message
+      message2: state.orderReducer.message,
+      message3: state.bookReducer.message
   }        
 
 }
 const mapDispatchToProps = (dispatch) => {
   return {
     userResetmessage: (reset)=>  dispatch({type: useractions.RESET_MESSAGE,payload:reset}),
-    orderResetmessage: (reset)=>  dispatch({type: orderactions.RESET_MESSAGE,payload:reset})
+    orderResetmessage: (reset)=>  dispatch({type: orderactions.RESET_MESSAGE,payload:reset}),
+    bookResetmessage: (reset)=>  dispatch({type: bookactions.RESET_MESSAGE,payload:reset})
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(CustomizedSnackbars);

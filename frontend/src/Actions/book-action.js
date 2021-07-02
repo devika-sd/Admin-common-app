@@ -7,7 +7,7 @@ export const UPDATE_BOOK = "UPDATE_BOOK"
 export const FETCH_BOOKS_BY_TITLE = "FETCH_BOOKS_BY_TITLE"
 export const FILTER_BOOK = "FILTER_BOOK"
 export const FETCH_BOOK_COUNT = "FETCH_BOOK_COUNT"
-
+export const RESET_MESSAGE='RESET_MESSAGE'
 
 const saveBook = (book) => {
     return {

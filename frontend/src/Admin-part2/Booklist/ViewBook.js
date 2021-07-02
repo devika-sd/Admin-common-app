@@ -100,7 +100,8 @@ function ViewBook(props) {
             setDiscount(props.books[id].discount)
             setAvailable(props.books[id].available)
            // var d = new Date(date.getFullYear(), (date.getMonth()+1), date.getDate());
-            setPublishDate(props.books[id].publishDate)
+            var publishedDate = new Date(props.books[id].publishDate)
+            setPublishDate(publishedDate.toLocaleDateString())
             setAuthors(props.books[id].authors)
             
         })();
@@ -255,10 +256,10 @@ function ViewBook(props) {
         <div>
             {/* {props.message.includes('updated')&&notify ? <Notification open={true} variant='success' msg={props.message}/> : null} */}
             
-            {props.message.includes('Book details not updated') ? <Notification open={true} variant='error' msg={props.message}/> : null}
+            {/* {props.message.includes('Book details not updated') ? <Notification open={true} variant='error' msg={props.message}/> : null}
                  {props.message.includes('Book details updated successfully') ? <Notification open={true} variant="success" msg={props.message}/> : null}
                  {props.message.includes('authors') ? <Notification open={true} variant="success" msg={"Author Name should be at least 4 Character Long"}/> : null}
-             
+              */}
             <Modal
                 open={open}
                 aria-labelledby="simple-modal-title"

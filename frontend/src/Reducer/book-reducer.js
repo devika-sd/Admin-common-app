@@ -75,6 +75,11 @@ const reducer = (state = initialState, action) => {
                 books: action.payload.data,
                 totalbook: action.payload.total
             }
+        case actions.RESET_MESSAGE:
+            return {
+                ...state,
+                message:action.payload
+            }
         default: return state
     }
 

@@ -132,7 +132,7 @@ class BookList extends React.Component {
         })
         return (
             <Aux>
-                {this.props.message.includes('Book is deleted successfully') ? <Notification open={true} variant="success" msg={this.props.message}/> : null}
+                {/* {this.props.message.includes('Book is deleted successfully') ? <Notification open={true} variant="success" msg={this.props.message}/> : null} */}
                 <Row>
                     <Col md={12} xl={12}>
                         <Card className='Recent-Users'>

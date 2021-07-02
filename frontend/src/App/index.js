@@ -34,7 +34,7 @@ class App extends Component {
 
         return (
             <Aux>
-                {(this.props.message1.length>0 || this.props.message2.length>0 ) ?<Notification variant="info"/>:null}
+                {(this.props.message1.length>0 || this.props.message2.length>0 || this.props.message3.length>0) ?<Notification variant="info"/>:null}
                 <ScrollToTop>
                     <Suspense fallback={<Loader/>}>
                         <Switch>
@@ -52,7 +52,8 @@ const mapStateToProps = (state) => {
 
     return {
         message1: state.userReducer.message,
-        message2: state.orderReducer.message
+        message2: state.orderReducer.message,
+        message3: state.bookReducer.message
     }
 }
 
