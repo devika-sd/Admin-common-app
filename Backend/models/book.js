@@ -7,7 +7,6 @@ const schema = mongoose.Schema;
 const BookSchema = new schema({
     title: {
         type: String,
-        ref:'user',
         unique: false,
         lowercase: true,
         trim: true,

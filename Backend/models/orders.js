@@ -8,6 +8,7 @@ const schema = mongoose.Schema;
 const OrdersSchema = new schema({
     email: {
         type: String,
+        ref:'user',
         trim: true,
         required: [true, 'Please provide a Email'],
         match: [/^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/, 'Please provide a valid Email Address']
