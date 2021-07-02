@@ -57,9 +57,9 @@ class PieDonutChart extends React.Component {
             { key: "fiction", y: this.props.BookCountPie[3].fiction, color: "#3ebfea" },
             { key: "ancient", y: this.props.BookCountPie[4].ancient, color: "#4F5467" },
             { key: "sciencefiction", y: this.props.BookCountPie[5].sciencefiction, color: "#1de9b6" },
-            { key: "thriller", y: this.props.BookCountPie[6].thriller, color: "#3ebfea" },
-            { key: "spritual", y: this.props.BookCountPie[7].spritual, color: "#4F5467" },
-            { key: "classic", y: this.props.BookCountPie[8].classic, color: "#1de9b6" }
+            { key: "thriller", y: this.props.BookCountPie[6].thriller, color: "#C70039" },
+            { key: "spritual", y: this.props.BookCountPie[7].spritual, color: "#581845" },
+            { key: "classic", y: this.props.BookCountPie[8].classic, color: "#2ECC71" }
 
         ]
 

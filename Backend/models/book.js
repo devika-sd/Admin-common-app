@@ -7,6 +7,7 @@ const schema = mongoose.Schema;
 const BookSchema = new schema({
     title: {
         type: String,
+        ref:'user',
         unique: false,
         lowercase: true,
         trim: true,
@@ -27,7 +28,7 @@ const BookSchema = new schema({
     isbn: {
         type: Number,
         required: [true, 'Please provide a ISBN'],
-    
+        unique: true
     },
     price: {
         type: Number,
@@ -55,6 +56,10 @@ const BookSchema = new schema({
     available: {
         type: Number,
         default:0
+    },
+    image: {
+        type: String,
+        required: true
     }
 });
 BookSchema.index({title: 'text', category: 'text', authors: 'text'});

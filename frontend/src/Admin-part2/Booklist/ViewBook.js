@@ -69,7 +69,8 @@ function ViewBook(props) {
     const [discountErrorMsg, setDiscountErrorMsg] = useState('')
     const [availableErrorMsg, setAvailableErrorMsg] = useState('')
     const [publishDateErrorMsg, setPublishdateErrorMsg] = useState('')
-
+    const categories= ["horror", "comedy", "adeventure", "fiction", "ancient", "sciencefiction", "thriller", "spritual", "classic" ]
+   
 
     const handleopen = () => {
         setOpen(true);
@@ -115,8 +116,11 @@ function ViewBook(props) {
         setNotify(true);
    
         let bookData = { title, category, authors, isbn, price, discount, available, publishDate}
-    
-        props.onUpdate(titleTemp, bookData)
+        if(titleTemp === null){
+        props.onUpdate(title, bookData)
+        } else{
+            props.onUpdate(titleTemp, bookData)
+        }
         setEnable(true)
     }
 
@@ -136,7 +140,7 @@ function ViewBook(props) {
     }
     const onTitleChange = (event) => {
         var titleValue = (event.target.value)
-        const expression = new RegExp('^[a-zA-Z]{1}[a-zA-Z0-9\\s]{2,20}$');
+        const expression = new RegExp('[a-zA-Z\s]{2,20}')
         
         if (!(expression.test(titleValue))) {
             setTitle(titleValue)
@@ -153,16 +157,15 @@ function ViewBook(props) {
     }
 
     const onCategoryChange = (event) => {
-        var categoryValue = (event.target.value)
-        const expression = new RegExp('^[a-zA-Z]{1}[a-zA-Z0-9\\s]{2,20}$');
-        
-        if (!(expression.test(categoryValue))) {
-            setCategory(categoryValue)
+        var value = (event.target.value)
+         
+        if (value==="") {
+            setCategory(value)
             setCategoryError(false)
             setCategoryErrorMsg('please enter a valid category');
         }
         else {
-            setCategory(categoryValue)
+            setCategory(value)
             setCategoryError(true)
             setCategoryErrorMsg('');
             check = false;
@@ -171,7 +174,7 @@ function ViewBook(props) {
 
     const onAuthorsChange = (event) => {
         var authorsValue = (event.target.value)
-        const expression = new RegExp('^[a-zA-Z]{1}[a-zA-Z0-9\\s]{4,20}$');
+        const expression = new RegExp('[a-zA-Z\s]{4,20}')
         
         if (!(expression.test(authorsValue))) {
             setAuthors(authorsValue)
@@ -324,7 +327,12 @@ function ViewBook(props) {
                                         <Form>
                                                 <Form.Group controlId="formBasicEmail">
                                                     <Form.Label>Categoy</Form.Label>
-                                                    <Form.Control type="text" value={category} onChange={onCategoryChange} placeholder="Enter Category" />
+                                                    <Form.Control onChange={onCategoryChange} value={category} as="select" placeholder="Select Category">
+                                                    <option>Select Category</option>
+                                                    {categories.map(data =>(
+                                                        <option title={data}>{data}</option>
+                                                    ))}
+                                                </Form.Control>
                                                     <p className="help-block text-danger">{categoryErrorMsg}</p>
                                                 </Form.Group>
 

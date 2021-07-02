@@ -42,7 +42,7 @@ class PieBasicChart extends React.Component {
             { key: "New", y: this.props.orderStatusCount[0].New, color: "#ff8a65" },
             { key: "Packed", y: this.props.orderStatusCount[1].Packed, color: "#f4c22b" },
             { key: "Shipped", y: this.props.orderStatusCount[2].Shipped, color: "#04a9f5" },
-            { key: "Completed", y: this.props.orderStatusCount[3].Completed, color: "#3ebfea" },
+            { key: "Completed", y: this.props.orderStatusCount[3].Completed, color: "#C70039" },
             { key: "Cancelled", y: this.props.orderStatusCount[4].Cancelled, color: "#4F5467" },
             { key: "Delayed", y: this.props.orderStatusCount[5].Delayed, color: "#1de9b6" }
 

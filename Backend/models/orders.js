@@ -37,7 +37,7 @@ const OrdersSchema = new schema({
             {
                 type: Number,
                 required: [true, 'Please provide a ISBN Number'],
-                match: [/^[0-9]{13}$/, 'Please provide a valid ISBN Number']
+                match: [/^[0-9]{10,13}$/, 'Please provide a valid ISBN Number']
             }
         }
     ],

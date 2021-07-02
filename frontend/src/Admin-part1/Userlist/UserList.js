@@ -71,10 +71,18 @@ class UserList extends React.Component {
             let temp = max > Math.floor(this.props.total / this.state.limit) ? Math.floor(max) + 1 : Math.floor(max);
             console.log(temp)
             let temparrr = [temp - 2, temp - 1, temp];
-            await this.setState({ pageno: temparrr, active: temp });
+            if(temp<4)
+            {
+                temparrr =[1,2,3]
+                await this.setState({ pageno: temparrr, active: temp });
+            }else
+            {
+                await this.setState({ pageno: temparrr, active: temp });
+            }
+            
             this.props.word === '' ? await this.getUsers() : await this.props.onfilterUsers('email[regex]='+this.props.word+'&page='+this.state.active+'&limit='+this.state.limit+'&isAdmin='+this.props.role);
         }
-        if (this.state.pageno[2] < max) {
+        if ((this.state.pageno[2] < max)&&(this.state.pageno[0]>0)) {
             if (current === "next") {
                 var temparr = [...this.state.pageno];
                 for (let i = 0; i < temparr.length; i++) {

@@ -31,7 +31,8 @@ const AddressSchema = new schema({
     country: {
         type: String,
         required: [true, 'Please provide a Country'],
-        match: [/[a-zA-Z]/, 'Please provide a valid Country']
+        match: [/[a-zA-Z]/, 'Please provide a valid Country'],
+        default:'India'
     },
     pinCode: {
         type: Number,

@@ -115,7 +115,7 @@ class BookList extends React.Component {
         })
         let bookList = this.props.books.map((book, i) => {
             return (<tr className="unread" key={i}>
-                <td><img className="rounded-circle" style={{ width: '40px' }} src={avatar2} alt="activity-user" /></td>
+                <td><img className="rounded-circle" style={{ width: '50px', height: '50px' }} src={book.image} alt="activity-user" /></td>
                 <td>
                     <h6 className="mb-1">{book.title}</h6>
                     <p className="m-0">{book.price} RS</p>

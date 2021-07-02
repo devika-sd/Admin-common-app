@@ -63,15 +63,14 @@ class NavSearch extends Component {
 
     async filterdata(e) {
         this.setState({ initial: e.target.value })
-        if (this.state.initial.length >= 3) {
-            console.log("*&*&*&*&*&*&*&*&*&*" + this.props.role)
+        if (e.target.value.length >= 3) {
             if (this.props.role === 'none') {
-                this.props.onfilterUsers('email[regex]=' + this.state.initial + '&page=' + 1 + '&limit=' + 5);
-                this.props.onSearch(this.state.initial);
+                this.props.onfilterUsers('email[regex]=' + e.target.value + '&page=' + 1 + '&limit=' + 5);
+                this.props.onSearch(e.target.value);
             }
             else {
-                this.props.onfilterUsers('email[regex]=' + this.state.initial + '&page=' + 1 + '&limit=' + 5 + '&isAdmin=' + this.props.role);
-                this.props.onSearch(this.state.initial);
+                this.props.onfilterUsers('email[regex]=' + e.target.value + '&page=' + 1 + '&limit=' + 5 + '&isAdmin=' + this.props.role);
+                this.props.onSearch(e.target.value);
             }
         }
         else {

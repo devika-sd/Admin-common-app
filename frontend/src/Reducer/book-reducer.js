@@ -10,7 +10,8 @@ let initialState = {
             publishDate:'',
             category:'',
             price:'',
-            available:''
+            available:'',
+            image:''
         }
     ],
     BookCountPie : [

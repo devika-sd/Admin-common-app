@@ -10,9 +10,9 @@ class AddBook extends Component {
     constructor() {
         super();
         this.state = {
-            title: '', isbn: '', category: '', authors: '', price:'', available:'', discount:'', publishDate:'', titleError: '', categoryError: '', isbnError: '',
-            authorsError: '', titlevalid: 0, isbnvalid: 0, categoryvalid: 0, authorsvalid: 0,
-            pricevalid: 0, priceError: '', publishDatevalid: 0, availablevalid : 0, discountvalid :0,
+            image: '', title: '', isbn: '', category: '', authors: '', price:'', available:'', discount:'', publishDate:'', titleError: '', categoryError: '', isbnError: '',
+            authorsError: '', imageError: '', titlevalid: 0, isbnvalid: 0, categoryvalid: 0, authorsvalid: 0,
+            pricevalid: 0, imageValid: 1, priceError: '', publishDatevalid: 0, availablevalid : 0, discountvalid :0,
             categories:["horror", "comedy", "adeventure", "fiction", "ancient", "sciencefiction", "thriller", "spritual", "classic" ],
             publishDateError:'', availableError:'', discountError:'', select:'', selectvalid : 0,notify:false
         };
@@ -110,10 +110,20 @@ class AddBook extends Component {
         this.setState({ publishDate: value })
     }
 
+    imageCheck(event) {
+        let value = event.target.value;
+        if (value<=0) {
+            this.setState({ imageError: "Please enter a valid book image", imagevalid: 0 })
+    
+        } else{
+        this.setState({ imageError: '', imagevalid: 1 })
+         }
+     this.setState({ image: value })
+    }
 
     async validateBook() {
        
-        let book = { title: this.state.title, category: this.state.category, isbn: this.state.isbn, authors:this.state.authors,price: this.state.price, discount: this.state.discount, publishDate: this.state.publishDate, available: this.state.available };
+        let book = { title: this.state.title, category: this.state.category, isbn: this.state.isbn, authors:this.state.authors,price: this.state.price, discount: this.state.discount, publishDate: this.state.publishDate, available: this.state.available, image: this.state.image };
         console.log(book)
         await this.props.onAddBook(book);
         if(this.props.message.length>0)
@@ -132,7 +142,7 @@ class AddBook extends Component {
 
     render() {
         var check = true;
-        if ((this.state.titlevalid === 1) && (this.state.categoryvalid === 1) && (this.state.isbnvalid === 1) && (this.state.authorsvalid === 1) && (this.state.pricevalid === 1) && (this.state.discountvalid === 1) && (this.state.publishDatevalid === 1) && (this.state.availablevalid === 1)) {
+        if ((this.state.titlevalid === 1) && (this.state.categoryvalid === 1) && (this.state.isbnvalid === 1) && (this.state.authorsvalid === 1) && (this.state.pricevalid === 1) && (this.state.discountvalid === 1) && (this.state.publishDatevalid === 1) && (this.state.availablevalid === 1) && (this.state.imagevalid === 1)) {
             check = false;
         }
 
@@ -176,7 +186,11 @@ class AddBook extends Component {
                                                 <Form.Control onChange={this.publishDateCheck.bind(this)} type="date" placeholder="Enter Publish Date" />
                                                 <p className="help-block text-danger">{this.state.publishDateError}</p>
                                             </Form.Group>
-
+                                            <Form.Group controlId="formBasicPassword">
+                                                <Form.Label>Book Image</Form.Label>
+                                                <Form.Control onChange={this.imageCheck.bind(this)} type="string" placeholder="Enter Book Image URL" />
+                                                <p className="help-block text-danger">{this.state.imageError}</p>
+                                            </Form.Group>
                                         </Form>
                                     </Col>
                                     <Col md={6}>

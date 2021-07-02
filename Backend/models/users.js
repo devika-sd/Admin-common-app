@@ -27,7 +27,7 @@ const UsersSchema = new schema({
         type: String,
         trim: true,
         required: [true, 'Please provide a Password'],
-        match: [/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,12}$/],
+        //match: [/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,12}$/],
     },
     isAdmin: {
         type: Boolean,
@@ -46,7 +46,16 @@ const UsersSchema = new schema({
     isBlocked: {
         type: Boolean,
         default: false
+    },
+    passwordResetToken: {
+        type: String
+    },
+    passwordResetExpires: {
+        type: Date
     }
+},
+{
+    timestamps: true,
 });
 UsersSchema.index({name: 'text', email: 'text'});
 UsersSchema.methods.generateToken = async function () {
@@ -59,14 +68,35 @@ UsersSchema.methods.checkpassword = async function (rawpassword) {
     return await bcrypt.compare(rawpassword, this.password);
 }
 
+UsersSchema.methods.createPasswordResetToken = function () {
+	const resetToken = crypto.randomBytes(32).toString('hex')
+	this.passwordResetToken = crypto
+		.createHash('sha256')
+		.update(resetToken)
+		.digest('hex')
+	this.passwordResetExpires = Date.now() + 10 * 60 * 1000
+	console.log({ resetToken }, this.passwordResetToken)
+	return resetToken
+}
 
-UsersSchema.pre('save', async function () {
+UsersSchema.pre('save', async function (next) {
     console.log(this)
+    if (!this.isModified('password')) {
+		next()
+	}
     console.log("before save operation  " + this.password);
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password, salt);
     console.log("after save method  ", this.password);
     const user = this
+})
+
+UsersSchema.pre('save', function (next) {
+	if (!this.isModified('password') || this.isNew) {
+		next()
+	}
+	this.timestamps = true
+	next()
 })
 
 const Users = new mongoose.model('user', UsersSchema);
