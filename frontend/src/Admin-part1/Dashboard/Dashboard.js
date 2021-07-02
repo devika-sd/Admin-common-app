@@ -14,7 +14,7 @@ class Dashboard extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {totalCount:0,todaysOrder:0,cancelledOreder:0};
+        this.state = {totalCount:0,todaysOrder:0,cancelledOreder:0,totalBooks:0};
     }
 
     componentDidMount() {
@@ -29,6 +29,15 @@ class Dashboard extends React.Component {
                 this.setState({todaysOrder:data.todaysorder});
                 this.setState({cancelledOreder:data.cancelledcount});
                 // dispatch({ type: COUNT_ORDER, payload: data });
+            })
+        fetch('http://localhost:8080/api/v1/book', {
+            headers: authHeader()
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                this.setState({totalBooks:data.total});
+                console.log(this.state.totalBooks);
             })
     }
     render() {
@@ -108,18 +117,14 @@ class Dashboard extends React.Component {
                     <Col md={6} xl={3}>
                         <Card>
                             <Card.Body>
-                                <h6 className='mb-4'>Today's Income</h6>
+                                <h6 className='mb-4'>Total Books</h6>
                                 <div className="row d-flex align-items-center">
                                     <div className="col-9">
-                                        <h3 className="f-w-300 d-flex align-items-center m-b-0"><i className="feather icon-arrow-up text-c-green f-30 m-r-5"/> $249.95</h3>
-                                    </div>
-
-                                    <div className="col-3 text-right">
-                                        <p className="m-b-0">50%</p>
+                                        <h3 className="f-w-300 d-flex align-items-center m-b-0"><i className="feather icon-arrow-up text-c-green f-30 m-r-5"/>{this.state.totalBooks}</h3>
                                     </div>
                                 </div>
                                 <div className="progress m-t-30" style={{height: '7px'}}>
-                                    <div className="progress-bar progress-c-theme" role="progressbar" style={{width: '25%'}} aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"/>
+                                    <div className="progress-bar progress-c-theme2" role="progressbar" style={{width: '25%'}} aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"/>
                                 </div>
                             </Card.Body>
                         </Card>
