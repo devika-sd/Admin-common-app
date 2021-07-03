@@ -45,61 +45,49 @@ const adminSignin = asyncHandler(async (req, res, next) => {
 const fetchAllUsers = asyncHandler(async (req, res) => {
     res.status(200).json(res.advancedResults)
 })
-// const updateUserDetails = asyncHandler(async (req, res, next) => {
 
-//     let users = await Users.findByIdAndUpdate({ _id: req.params._id }, {
-//         email: req.body.email,
-//         name: req.body.name,
-//         address: req.body.address,
-//         phone: req.body.phone
-//     }, {
-//         new: true,
-//         runValidators: true
-//     })
-//     // 60c8ab82d8fd8e071c8211c5 
-//     if (!users) throw new Error(`User id ${req.params._id} not found`)
-
-//     if ((req.body.password).localeCompare('') !== 0) {
-//         let newPassword = req.body.password
-//         console.log('Inside Update Password Hash')
-//         console.log("before save operation  " + newPassword);
-//         const salt = await bcrypt.genSalt(10);
-//         newPassword = await bcrypt.hash(newPassword, salt);
-//        console.log("after save method  ", newPassword);
-//         req.body.password = newPassword
-//         users = await Users.findByIdAndUpdate({ _id: req.params._id }, {
-//             password: req.body.password
-//         }, {
-//             new: true,
-//             runValidators: true
-//         })
-
-//         if (!users) throw new Error(`Password not updated ${req.params._id} not found`)
-//        // console.log("Updated: " + users);
-
-//     }
-//     res.json({ success: true, data: [users] });
-//     // res.send('Update')
-// })
 const updateUserDetails = asyncHandler(async (req, res, next) => {
-    const users = await Users.findOne({_id:req.params._id});
 
-        users.email= req.body.email;
-        users.name= req.body.name;
-        users.phone= req.body.phone;
-        users.password=req.body.password;
-        await users.save().then(saved=>{
-            if(saved===users)
-            {
-                res.json({ success: true, data: [users],message:"User details updated successfully" });
+
+    if ((req.body.password).localeCompare('') === 0) {
+        console.log("Profile:", req.body);
+
+        let users = await Users.findByIdAndUpdate({ _id: req.params._id }, {
+            email: req.body.email,
+            name: req.body.name,
+            addresses: req.body.address,
+            phone: req.body.phone
+        }, {
+            new: true,
+            runValidators: true
+        })
+        if (!users) throw new Error(`User id ${req.params._id} not found`)
+        res.json({ success: true, data: [users], message: "User Details Updated successfully" });
+    }
+    else {
+        let users = await Users.findOne({ _id: req.params._id });
+        if (!users) throw new Error(`User id ${req.params._id} not found`)
+
+        users.email = req.body.email;
+        users.name = req.body.name;
+        users.phone = req.body.phone;
+        users.addresses = req.body.address;
+        users.password = req.body.password;
+        await users.save().then(saved => {
+            if (saved === users) {
+                res.json({ success: true, data: [users], message: "User Details updated successfully" });
             }
-            else
-            {
-                res.json({ success: false, message:"details not updated" });
+            else {
+
+                res.json({ success: false, message: "Details not Updated" });
             }
         });
-        
+
+    }
+    // res.send('Profile')
 });
+
+
 const addUser = asyncHandler(async (req, res, next) => {
     //Operatons on model
 

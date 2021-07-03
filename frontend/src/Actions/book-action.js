@@ -8,6 +8,7 @@ export const FETCH_BOOKS_BY_TITLE = "FETCH_BOOKS_BY_TITLE"
 export const FILTER_BOOK = "FILTER_BOOK"
 export const FETCH_BOOK_COUNT = "FETCH_BOOK_COUNT"
 export const RESET_MESSAGE='RESET_MESSAGE'
+export const FETCH_AVAILABLE_COUNT='FETCH_AVAILABLE_COUNT'
 
 const saveBook = (book) => {
     return {
@@ -155,6 +156,20 @@ export const fetchBookCatogryCount = () => {
                 console.log(data.data);
 
                 dispatch({ type: FETCH_BOOK_COUNT, payload: data.data });
+            })
+    }
+}
+
+export const fetchBookavailableCount = () => {
+
+    return dispatch => {
+        fetch('http://localhost:8080/api/v1/book/chart/barchart', {
+            headers: authHeader()
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                dispatch({ type: FETCH_AVAILABLE_COUNT, payload: data.data });
             })
     }
 }

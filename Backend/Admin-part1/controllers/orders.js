@@ -70,7 +70,8 @@ const DaywiseOrderCount = asyncHandler(async (req, res) => {
                     count: { $sum: 1 }
                 }
             },
-            {$sort: {_id: -1}}
+            {$sort: {_id: -1}},
+            { $limit : 28 }
         ]
     )
     let CodCount = await Orders.aggregate(
@@ -80,7 +81,8 @@ const DaywiseOrderCount = asyncHandler(async (req, res) => {
                 _id: { $dateToString: { format: "%Y-%m-%d", date: "$orderDate" } },
                 count: { $sum: 1 }
             }},
-            {$sort: {_id: -1}}
+            {$sort: {_id: -1}},
+            { $limit : 28 }
         ]
     )
     let OnlineCount = await Orders.aggregate(
@@ -90,7 +92,8 @@ const DaywiseOrderCount = asyncHandler(async (req, res) => {
                 _id: { $dateToString: { format: "%Y-%m-%d", date: "$orderDate" } },
                 count: { $sum: 1 }
             }},
-            {$sort: {_id: -1}}
+            {$sort: {_id: -1}},
+            { $limit : 28 }
         ]
     )
     

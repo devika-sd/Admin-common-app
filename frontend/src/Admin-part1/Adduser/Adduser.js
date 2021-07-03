@@ -182,6 +182,7 @@ class AddUser extends Component {
         let user = { name: this.state.name, email: this.state.email, password: this.state.password, phone: this.state.phonenumber,isAdmin: this.state.role,addresses:[{houseNumber:this.state.housenumber,city:this.state.city,locality:this.state.locality,country:this.state.country,state:this.state.select,pinCode:this.state.pincode}] };
         console.log(user)
         await this.props.onAddUser(user);
+        this.myFormRef.reset();
         
     }
 
@@ -202,9 +203,10 @@ class AddUser extends Component {
                                 <Card.Title as="h5">Add User</Card.Title>
                             </Card.Header>
                             <Card.Body>
+                            <Form ref={(el) => this.myFormRef = el}>
                                 <Row>
                                     <Col md={6}>
-                                        <Form autoComplete>
+                                        
                                             <Form.Group controlId="formBasicEmail">
                                                 <Form.Label>Name</Form.Label>
                                                 <Form.Control onChange={this.name.bind(this)} type="text" placeholder="Enter Name" />
@@ -233,7 +235,6 @@ class AddUser extends Component {
                                                 <p className="help-block text-danger">{this.state.roleError}</p>                                       </Form.Group>
 
 
-                                        </Form>
                                     </Col>
                                     <Col md={6}>
                                         <Form.Group controlId="exampleForm.ControlInput1">
@@ -305,8 +306,11 @@ class AddUser extends Component {
                                     <Button disabled={check} style={{width:"90px"}} onClick={this.validateUser.bind(this)} variant="primary">
                                                 Add
                                     </Button>
+                                    
                                     </Col>
+                                    
                                 </Row>
+                                </Form>
                             </Card.Body>
                         </Card>
                     </Col>

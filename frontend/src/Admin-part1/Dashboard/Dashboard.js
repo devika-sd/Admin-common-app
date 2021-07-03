@@ -1,14 +1,9 @@
 import React from 'react';
-import {Row, Col, Card, Table, Tabs, Tab} from 'react-bootstrap';
+import {Row, Col, Card} from 'react-bootstrap';
 import Aux from "../../hoc/_Aux";
 import Index from "../Charts/Nvd3Chart/index";
-import Admintable from './Admintable';
 
-// import * as actionTypes from "../../store/actions";
-// import * as orderactions from '../../Actions/order-action';
-// import { connect } from 'react-redux';
 import authHeader from '../../services/auth-header';
-import Bookratingdata from '../Charts/Nvd3Chart/Bookratingdata';
 
 class Dashboard extends React.Component {
 
@@ -41,31 +36,7 @@ class Dashboard extends React.Component {
             })
     }
     render() {
-    //    const tabContent = (
-    //         <Aux>
-    //                 <div className="media friendlist-box align-items-center justify-content-center m-b-20">
-                    
-    //                     <div className="media-body">
-    //                         <i className="icon feather icon-hash text-c-purple"/>
-    //                         <h6 className="m-0 d-inline text-c-purple">&nbsp;&nbsp;&nbsp;<b>Profile Photo</b></h6>
-    //                     </div>
-    //                     <div className="media-body">
-    //                     <i className="icon feather icon-mail  text-c-purple"/>
-    //                         <h6 className="m-0 d-inline text-c-purple">&nbsp;&nbsp;&nbsp;<b>Admin Name</b></h6>
-    //                     </div>
-                        
-    //                     <div className="media-body">
-    //                     <i className="icon feather icon-calendar text-c-purple"/>
-    //                         <h6 className="m-0 d-inline text-c-purple">&nbsp;&nbsp;&nbsp;<b>Date Time</b></h6>
-    //                     </div>
-    //                     <div className="media-body">
-    //                     <i className="icon feather icon-pie-chart text-c-purple"/>
-    //                         <h6 className="m-0 d-inline text-c-purple">&nbsp;&nbsp;&nbsp;<b>Status</b></h6>
-    //                     </div>
-    //              </div>
-    //        </Aux>
-    //    );
-
+    
         return (
             <Aux>
                 <Row>
@@ -136,37 +107,11 @@ class Dashboard extends React.Component {
                             </Card.Body>
                         </Card>
                     </Col>
-                    <Col sm={12} xl={12} md={8}>
-                        <Card>
-                            <Card.Header>
-                                <Card.Title as='h5'>Books Rating</Card.Title>
-                            </Card.Header> 
-                            <Card.Body>
-                              <Bookratingdata />
-                            </Card.Body>
-                        </Card>
-                    </Col>
-                    {/* <Col sm={12}>
-                        <Card>
-                            <Card.Header>
-                                <Card.Title as='h5'>Admin Table</Card.Title>
-                            </Card.Header>
-                            <Card.Body>
-                                <Admintable/>
-                            </Card.Body>
-                        </Card>
-                    </Col> */}
+                    
                 </Row>
             </Aux>
         );
     }
 }
 
-// const mapDispatchToProps = (dispatch) => {
-//     return {
-//         onGetCount: () => dispatch(orderactions.getorders())
-//     }
-// }
-
-// export default connect(null,mapDispatchToProps)(Dashboard);
 export default Dashboard;

@@ -2,7 +2,6 @@ import React from 'react';
 import {Row, Col, Card} from 'react-bootstrap';
 
 import Aux from "../../../hoc/_Aux/index";
-import LineChart from "./LineChart";
 import BarDiscreteChart from "./BarDiscreteChart";
 import MultiBarChart from "./MultiBarChart";
 import PieBasicChart from "./PieBasicChart";
@@ -14,26 +13,7 @@ class Nvd3Chart extends React.Component {
         return (
             <Aux>
                 <Row>
-                    {/* <Col md={6}>
-                        <Card>
-                            <Card.Header>
-                                <Card.Title as="h5">Line Chart</Card.Title>
-                            </Card.Header>
-                            <Card.Body>
-                                <LineChart/>
-                            </Card.Body>
-                        </Card>
-                    </Col>
-                    <Col md={6}>
-                        <Card>
-                            <Card.Header>
-                                <Card.Title as="h5">Discrete Bar Chart</Card.Title>
-                            </Card.Header>
-                            <Card.Body>
-                                <BarDiscreteChart/>
-                            </Card.Body>
-                        </Card>
-                    </Col> */}
+                    
                     <Col md={6}>
                         <Card>
                             <Card.Header>
@@ -61,6 +41,16 @@ class Nvd3Chart extends React.Component {
                             </Card.Header>
                             <Card.Body>
                                 <MultiBarChart/>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                    <Col md={12}>
+                        <Card>
+                            <Card.Header>
+                                <Card.Title as="h5">Available Book Count</Card.Title>
+                            </Card.Header>
+                            <Card.Body>
+                                <BarDiscreteChart/>
                             </Card.Body>
                         </Card>
                     </Col>

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { addBook, fetchAllBook, deleteBooksByTitle, updateBookDetails, fetchBooksByTitle,categoryforPie} = require('../controllers/book');
+const { addBook, fetchAllBook, deleteBooksByTitle, updateBookDetails, fetchBooksByTitle,categoryforPie,categoryforchart} = require('../controllers/book');
 const { protect, authorize } = require('../../middleware/auth');
 var advancedFind = require('../middleware/Advancedfind');
 const Book = require('../../models/book');
@@ -22,4 +22,6 @@ router.route('/:title')
 router.route('/chart/piechart')
     .get(categoryforPie)
 
+router.route('/chart/barchart')
+    .get(categoryforchart)
 module.exports = router;

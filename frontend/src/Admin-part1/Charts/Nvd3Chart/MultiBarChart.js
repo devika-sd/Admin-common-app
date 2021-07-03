@@ -67,7 +67,7 @@ class MultiBarChart extends React.Component {
         console.log(sin3)
         return [
             {
-                values: sin3,
+                values: sin,
                 key: 'Orders',
                 color: '#A389D4'
             },
@@ -77,7 +77,7 @@ class MultiBarChart extends React.Component {
                 color: '#04a9f5'
             },
             {
-                values: sin,
+                values: sin3,
                 key: 'Online',
                 color: '#1de9b6',
                 area: true

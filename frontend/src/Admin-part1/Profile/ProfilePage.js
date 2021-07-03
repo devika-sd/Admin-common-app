@@ -37,8 +37,9 @@ function ProfilePage(props) {
             setEmail(props.users[0].email)
             setOldPassword(props.users[0].password)
             setContact(props.users[0].phone)
-            var addresses = props.users[0].city + "," + props.users[0].pinCode;
+            var addresses = props.users[0].addresses;
             setAddress(addresses)
+            console.log("*****************Address:", address);
             // setRole(data.data[0].role)
             if (props.users[0].isAdmin) setPasswordEnable(true)
             else setPasswordEnable(false)
@@ -47,7 +48,7 @@ function ProfilePage(props) {
 
 
         console.log(passwordEnable);
-    }, [props.users[0].email,id])
+    }, [props.users[0].email, id])
     const onNameChange = (event) => {
         var nameValue = (event.target.value)
         const expression = new RegExp('[a-zA-Z]{4,}');
@@ -77,7 +78,7 @@ function ProfilePage(props) {
     const onPasswordChange = (event) => {
         var contactValue = (event.target.value);
         const expression = new RegExp('^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,12}$');
-         console.log(expression.test(contactValue));
+        console.log(expression.test(contactValue));
         if (!(expression.test(contactValue))) {
             setPassword(contactValue)
             setPasswordError(false)
@@ -96,7 +97,7 @@ function ProfilePage(props) {
             setCPassword(contactValue)
             setCPasswordError(false)
         }
-        else{
+        else {
             setCPassword(contactValue)
             setCPasswordError(true)
         }
@@ -150,8 +151,8 @@ function ProfilePage(props) {
                     // borderRadius: '5px',
                     // outline: 'none'
 
-                }} column sm={3}>Address {props.users[0].addresses.length>1 ? i+1 : null}</Form.Label>
-                
+                }} column sm={3}>Address {props.users[0].addresses.length > 1 ? i + 1 : null}</Form.Label>
+
                 <Col sm={9}>
                     <Form.Control readOnly plaintext style={{
                         border: '1px solid lightgrey',
@@ -166,7 +167,7 @@ function ProfilePage(props) {
     }
     return (
         <Aux>
-            
+
             <Row>
                 <Col md={4} xl={4}>
                     <Card className='card-event'>
@@ -260,7 +261,6 @@ function ProfilePage(props) {
 
                                         </Form.Group>
                                         {addresslist}
-
                                         <Form.Group as={Row} sm={12} style={{ marginTop: '50px', width: "100%", textAlign: 'center' }}>
                                             <div style={{ width: "100%" }}>
                                                 <Button style={{ margin: '3px', width: '100px', display: 'inline-block', height: "40px", textAlign: 'center' }} variant="primary" block onClick={Edit} variant="primary" >EDIT</Button>
@@ -286,10 +286,10 @@ function ProfilePage(props) {
                                             <Form.Control type="text" value={name} onChange={onNameChange} placeholder="Enter Name" />
                                         </Col>
                                         <Col sm={3}></Col>
-                                            <Col sm={9}>
-                                        {!nameError && <Form.Text className="text-danger">
-                                            Please Enter Valid Name (paddu)
-                                        </Form.Text>}
+                                        <Col sm={9}>
+                                            {!nameError && <Form.Text className="text-danger">
+                                                Please Enter Valid Name (paddu)
+                                            </Form.Text>}
                                         </Col>
                                     </Form.Group>
 
@@ -308,10 +308,10 @@ function ProfilePage(props) {
                                             <Form.Control type="email" value={email} onChange={onEmailChange} placeholder="Enter Email" />
                                         </Col>
                                         <Col sm={3}></Col>
-                                            <Col sm={9}>
-                                        {!emailError && <Form.Text className="text-danger">
-                                            Please Enter Valid Email (paddu@gmail.com)
-                                        </Form.Text>}
+                                        <Col sm={9}>
+                                            {!emailError && <Form.Text className="text-danger">
+                                                Please Enter Valid Email (paddu@gmail.com)
+                                            </Form.Text>}
                                         </Col>
                                     </Form.Group>
                                     {passwordEnable &&
@@ -330,9 +330,9 @@ function ProfilePage(props) {
                                             </Col>
                                             <Col sm={3}></Col>
                                             <Col sm={9}>
-                                            {!passwordError && <Form.Text className="text-danger">
-                                                Please Enter Valid Password (Paddu@0y)
-                                            </Form.Text>}
+                                                {!passwordError && <Form.Text className="text-danger">
+                                                    Please Enter Valid Password (Paddu@0y)
+                                                </Form.Text>}
                                             </Col>
                                         </Form.Group>
 
@@ -353,9 +353,9 @@ function ProfilePage(props) {
                                             </Col>
                                             <Col sm={3}></Col>
                                             <Col sm={9}>
-                                            {!cpasswordError && <Form.Text className="text-danger">
-                                                Please Enter Valid Password (paddu@0y)
-                                            </Form.Text>}
+                                                {!cpasswordError && <Form.Text className="text-danger">
+                                                    Please Enter Valid Password (paddu@0y)
+                                                </Form.Text>}
                                             </Col>
                                         </Form.Group>
 
@@ -376,13 +376,13 @@ function ProfilePage(props) {
                                         </Col>
                                         <Form.Text sm={3}></Form.Text>
                                         <Col sm={3}></Col>
-                                            <Col sm={9}>
-                                        {!contactError && <Form.Text className="text-danger" sm={9}>
-                                            Please Enter Valid Contact number (9284556633)
-                                        </Form.Text>}
+                                        <Col sm={9}>
+                                            {!contactError && <Form.Text className="text-danger" sm={9}>
+                                                Please Enter Valid Contact number (9284556633)
+                                            </Form.Text>}
                                         </Col>
                                     </Form.Group>
-
+                                    {addresslist}
                                     <Form.Group as={Row} sm={12} style={{ marginTop: '50px', width: "100%", textAlign: 'center' }}>
                                         <div style={{ width: "100%" }}>
                                             <Button style={{ margin: '3px', width: '100px', display: 'inline-block', style: 'inline-block', height: "40px", textAlign: 'center' }} disabled variant="primary" block onClick={Edit} variant="primary" >EDIT</Button>
@@ -407,8 +407,8 @@ const mapStateToProps = (state) => {
     return {
         users: state.userReducer.users,
         authenticated: state.authReducer.authenticated,
-        currentuser:state.userReducer.currentUser,
-        message:state.userReducer.message
+        currentuser: state.userReducer.currentUser,
+        message: state.userReducer.message
     }
 }
 

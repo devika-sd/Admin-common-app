@@ -1,50 +1,54 @@
 import React from 'react';
 import NVD3Chart from 'react-nvd3';
-
-const datum = [
-    {
-        key: "Cumulative Return",
-        values: [{
-            "label": "A",
-            "value": -29.765957771107,
-            "color": "#3ebfea"
-        }, {
-            "label": "B",
-            "value": 10,
-            "color": "#04a9f5"
-        }, {
-            "label": "C",
-            "value": 32.807804682612,
-            "color": "#ff8a65"
-        }, {
-            "label": "D",
-            "value": 196.45946739256,
-            "color": "#1de9b6"
-        }, {
-            "label": "E",
-            "value": 0.25434030906893,
-            "color": "#4C5667"
-        }, {
-            "label": "F",
-            "value": -98.079782601442,
-            "color": "#69CEC6"
-        }, {
-            "label": "G",
-            "value": -13.925743130903,
-            "color": "#a389d4"
-        }, {
-            "label": "H",
-            "value": -5.1387322875705,
-            "color": "#FE8A7D"
-        }]
-    }
-];
+import * as bookaction from '../../../Actions/book-action';
+import { connect } from 'react-redux';
 
 class BarDiscreteChart extends React.Component {
+    constructor() {
+        super()
+        this.state = {
+            paddu: []
+        }
+    }
+    componentDidMount() {
+        this.props.onBookCountchart();
+        console.log("*****bar chart***")
+        console.log(this.props.countRecord)
+        this.setState({ paddu: this.props.countRecord })
+        console.log("*****bar chart***")
+        console.log(this.state.paddu);
 
+    }
     render() {
-        return <NVD3Chart tooltip={{enabled: true}} type="discreteBarChart" datum={datum} x="label" y="value" height={300} showValues />
+        const records = this.props.countRecord.map((data)=>{
+            return {
+                "label": data._id,
+                "value": data.count,
+                "color": data.color
+            }
+        })
+        console.log(records)
+        const datum = [
+            {
+                key: "Cumulative Return",
+                values: records
+            }
+        ];
+        
+        return <NVD3Chart tooltip={{ enabled: true }} type="discreteBarChart" datum={datum} x="label" y="value" height={300} showValues />
+    }
+}
+const mapStateToProps = (state) => {
+    console.log(state.bookReducer.BookCountchart)
+    return {
+        countRecord: state.bookReducer.BookCountchart
     }
 }
 
-export default BarDiscreteChart;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onBookCountchart: () => dispatch(bookaction.fetchBookavailableCount()),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(BarDiscreteChart);

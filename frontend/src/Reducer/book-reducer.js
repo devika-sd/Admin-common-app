@@ -26,7 +26,18 @@ let initialState = {
         { classic: 0 }
     ],
     totalbook: "",
-    message:''
+    message:'',
+    BookCountchart:[
+        {_id: "thriller", count: 0,color: "#3ebfea"},
+        {_id: "spritual", count: 0,color: "#04a9f5"},
+        {_id: "sciencefiction", count: 0,color: "#ff8a65"},
+        {_id: "horror", count: 0,color: "#1de9b6"},
+        {_id: "fiction", count: 0,color: "#4C5667"},
+        {_id: "comedy", count: 0,color: "#69CEC6"},
+        {_id: "classic", count: 0,color: "#a389d4"},
+        {_id: "ancient", count: 0,color: "#FE8A7D"},
+        {_id: "adeventure", count: 0,color: "#3ebfea"},
+    ]
 }
 
 // Reducers in store to modify state -- don't directly manipulate state
@@ -68,6 +79,12 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 BookCountPie: action.payload,
+
+            }
+        case actions.FETCH_AVAILABLE_COUNT:
+            return {
+                ...state,
+                BookCountchart: action.payload,
 
             }
         case actions.FILTER_BOOK:

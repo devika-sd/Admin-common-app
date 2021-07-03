@@ -87,4 +87,20 @@ const categoryforPie = asyncHandler(async (req, res) => {
     res.json({ success: true, data: statusArr })
 
 })
-module.exports = {addBook, fetchAllBook, deleteBooksByTitle, updateBookDetails, fetchBooksByTitle, categoryforPie};
+const categoryforchart = asyncHandler(async (req, res) => {
+    let books = await Book.aggregate(
+        [
+            {
+                $group: {
+                    _id: "$category",
+                    count: { $sum: "$available" }
+                }
+            },
+            {$sort: {_id: -1}}
+        ]
+    )
+     res.json({ success: true, data: books })
+
+})
+
+module.exports = {addBook, fetchAllBook, deleteBooksByTitle, updateBookDetails, fetchBooksByTitle, categoryforPie,categoryforchart};
