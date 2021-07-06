@@ -16,14 +16,6 @@ export default {
                     icon: 'feather icon-home',
                 },
                 {
-                    id: 'profile',
-                    title: 'Profile',
-                    type: 'item',
-                    url: '/profile/'+currentUser.currentUser(),
-                    classes: 'nav-item',
-                    icon: 'feather icon-user'
-                },
-                {
                     id: 'basic',
                     title: 'Users',
                     type: 'collapse',
