@@ -1,4 +1,4 @@
-import { Row, Col, Card, Form, Button, Table } from 'react-bootstrap';
+import { Row, Col, Card, Form, Button, Table,Image } from 'react-bootstrap';
 
 import Aux from "../../hoc/_Aux";
 import avatar2 from '../../assets/images/user/avatar-2.jpg';
@@ -18,7 +18,7 @@ function ProfilePage(props) {
     const [cpassword, setCPassword] = useState('');
     const [oldPassword, setOldPassword] = useState('');
     const [phone, setContact] = useState('');
-
+    const [photo, setPhoto] = useState('')
     const [enable, setEnable] = useState(true)
     const [passwordEnable, setPasswordEnable] = useState(false)
 
@@ -29,6 +29,8 @@ function ProfilePage(props) {
     const [cpasswordError, setCPasswordError] = useState(true)
     const [contactError, setContactError] = useState(true)
     console.log(id)
+    const [srcp,setSrcp] = useState("")
+
     useEffect(() => {
         (async () => {
             await props.onGetUsers("_id=" + id);
@@ -37,6 +39,16 @@ function ProfilePage(props) {
             setEmail(props.users[0].email)
             setOldPassword(props.users[0].password)
             setContact(props.users[0].phone)
+            console.log(props.users[0].photo)
+            if(props.users[0].photo)
+            {
+                setSrcp('http://localhost:8080/dp/' + props.users[0].photo)
+            }
+            else
+            {
+                setSrcp(avatar2)
+            }
+            setPhoto(props.users[0].photo)
             var addresses = props.users[0].addresses;
             setAddress(addresses)
             console.log("*****************Address:", address);
@@ -44,11 +56,11 @@ function ProfilePage(props) {
             if (props.users[0].isAdmin) setPasswordEnable(true)
             else setPasswordEnable(false)
         })();
-
-
-
         console.log(passwordEnable);
     }, [props.users[0].email, id])
+
+    console.log(srcp)
+
     const onNameChange = (event) => {
         var nameValue = (event.target.value)
         const expression = new RegExp('[a-zA-Z]{4,}');
@@ -176,7 +188,7 @@ function ProfilePage(props) {
 
                                 <div style={{ margin: 'auto' }} className="media friendlist-box align-items-center justify-content-center m-b-20">
                                     <div className="m-r-10 photo-table" style={{ width: "100%" }}>
-                                        <img className="rounded-circle" style={{ width: '200px', height: "220px", margin: 'auto' }} src={avatar2} alt="activity-user" />
+                                        <img className="rounded-circle" style={{ width: '200px', height: "220px", margin: 'auto' }} src={srcp} alt="activity-user" />
                                     </div>
                                 </div>
 

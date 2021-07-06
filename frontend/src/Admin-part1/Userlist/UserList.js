@@ -148,8 +148,19 @@ class UserList extends React.Component {
 
         })
         let userList = this.props.users.map((user, i) => {
+            console.log(user.photo);
+            var url=""
+            if(user.photo === "")
+            {
+                console.log(avatar2)
+                url = avatar2
+            }
+            else
+            {
+                url = "http://localhost:8080/dp/"+user.photo
+            }
             return (<tr className="unread" key={i}>
-                <td><img className="rounded-circle" style={{ width: '40px' }} src={avatar2} alt="activity-user" /></td>
+                <td><img className="rounded-circle" style={{ width: '40px' }} src={url} alt="activity-user" /></td>
                 <td>
                     <h6 className="mb-1">{user.name}</h6>
                     <p className="m-0">{user.email}</p>
