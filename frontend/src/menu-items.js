@@ -1,5 +1,4 @@
   
-import currentUser from './services/tokendecoder';
 export default {
     items: [
         {

@@ -11,6 +11,7 @@ import Loader from "../Loader";
 import routes from "../../../routes";
 import Aux from "../../../hoc/_Aux";
 import * as actionTypes from "../../../store/actions";
+import currentUser from '../../../services/tokendecoder';
 
 import './app.scss';
 
@@ -50,7 +51,8 @@ class AdminLayout extends Component {
                     exact={route.exact}
                     name={route.name}
                     render={props => (
-                        <route.component {...props} />
+                        currentUser.isAutenticated() ? <route.component {...props} /> 
+                    : <Redirect to="/" />
                     )} />
             ) : (null);
         });
