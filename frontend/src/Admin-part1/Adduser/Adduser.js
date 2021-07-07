@@ -23,7 +23,8 @@ class AddUser extends Component {
 
     name(event) {
         let value = event.target.value
-        const name = new RegExp('[a-zA-Z\s]{5,20}')
+        //const name = new RegExp('[a-zA-Z\s]{5,20}')
+        const name = new RegExp('^[a-zA-Z\\s]{4,20}$')
         if (!name.test(value)) {
             this.setState({ nameError: "please enter a valid firstname", namevalid: 0 })
         }
@@ -60,7 +61,8 @@ class AddUser extends Component {
 
     emailCheck(event) {
         let value = event.target.value;
-        var mail = new RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$",);
+        //var mail = new RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$",);
+        var mail = new RegExp("^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$");
         if (!mail.test(value)) {
             this.setState({ emailError: "please enter a valid mail", emailvalid: 0 })
         }
@@ -72,7 +74,8 @@ class AddUser extends Component {
 
     passwordCheck(event) {
         let value = event.target.value;
-        var password = new RegExp("^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,12}$",);
+        //var password = new RegExp("^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,12}$",);
+        var password = new RegExp("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&-+=()])(?=\\S+$).{6,12}$");
         if (!password.test(value)) {
             this.setState({ passwordError: "please enter a valid password", passwordvalid: 0 })
         }
@@ -123,7 +126,8 @@ class AddUser extends Component {
 
     localityCheck(event){
         let value = event.target.value
-        const locality = new RegExp('[a-zA-Z\s]')
+        //const locality = new RegExp('[a-zA-Z\s]')
+        const locality = new RegExp('^[a-zA-Z\\s]{4,}$')
         if(locality.test(value)){
             this.setState({ locality: value, localityvalid: 1,localityError:'' })
         }
@@ -134,7 +138,8 @@ class AddUser extends Component {
     
     citycheck(event){
         let value = event.target.value
-        const city = new RegExp('[a-zA-Z\s]')
+        //const city = new RegExp('[a-zA-Z\s]')
+        const city = new RegExp('^[a-zA-Z\\s]{3,}$')
         if(city.test(value)){
             this.setState({ city: value, cityvalid: 1,cityError:'' })
         }
@@ -221,7 +226,7 @@ class AddUser extends Component {
 
                                             <Form.Group controlId="formBasicPassword">
                                                 <Form.Label>Password</Form.Label>
-                                                <Form.Control onChange={this.passwordCheck.bind(this)} type="password" placeholder="Password" />
+                                                <Form.Control onChange={this.passwordCheck.bind(this)} type="text" placeholder="Password" />
                                                 <p className="help-block text-danger">{this.state.passwordError}</p>
                                             </Form.Group>
                                             <Form.Group controlId="exampleForm.ControlSelect1">

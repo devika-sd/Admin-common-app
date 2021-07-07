@@ -17,7 +17,8 @@ class SignUp1 extends React.Component {
     emailCheck(event) {
         let value = event.target.value;
         console.log(value);
-        var mail = new RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$",);
+        //var mail = new RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$",);
+        var mail = new RegExp("^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$");
         if (!mail.test(value)) {
             this.setState({ emailError: "please enter valid mail", emailvalid: 0 })
         }
@@ -28,7 +29,8 @@ class SignUp1 extends React.Component {
     }
     passwordCheck(event) {
         let value = event.target.value;
-        var password = new RegExp("^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,12}$",);
+        //var password = new RegExp("^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,12}$",);
+        var password = new RegExp("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&-+=()])(?=\\S+$).{6,12}$");
         if (!password.test(value)) {
             this.setState({ passwordError: "please enter a valid password", passwordvalid: 0 })
         
@@ -86,7 +88,7 @@ class SignUp1 extends React.Component {
                                     <p style={{ fontSize: "12px" }} className="help-block text-danger">{this.state.emailError}</p>
                                 </div>
                                 <div className="input-group mb-1">
-                                    <input type="password" className="form-control" onChange={this.passwordCheck.bind(this)} placeholder="password" />
+                                    <input type="text" className="form-control" onChange={this.passwordCheck.bind(this)} placeholder="password" />
 
                                 </div>
                                 <div className="input-group mb-3">

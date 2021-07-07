@@ -63,8 +63,9 @@ function ProfilePage(props) {
 
     const onNameChange = (event) => {
         var nameValue = (event.target.value)
-        const expression = new RegExp('[a-zA-Z]{4,}');
+        //const expression = new RegExp('[a-zA-Z]{4,}');
         // console.log(nameValue);
+        const expression = new RegExp('^[a-zA-Z\\s]{4,20}$')
         if (!(expression.test(nameValue))) {
             setName(nameValue)
             setNameError(false)
@@ -76,8 +77,9 @@ function ProfilePage(props) {
     }
     const onEmailChange = (event) => {
         var emailValue = (event.target.value);
-        const expression = new RegExp('^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$');
+        //const expression = new RegExp('^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$');
         // console.log(nameValue);
+        const expression  = new RegExp("^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$");
         if (!(expression.test(emailValue))) {
             setEmail(emailValue)
             setEmailError(false)
@@ -89,7 +91,8 @@ function ProfilePage(props) {
     }
     const onPasswordChange = (event) => {
         var contactValue = (event.target.value);
-        const expression = new RegExp('^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,12}$');
+        //const expression = new RegExp('^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,12}$');
+        const expression= new RegExp("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&-+=()])(?=\\S+$).{6,12}$");
         console.log(expression.test(contactValue));
         if (!(expression.test(contactValue))) {
             setPassword(contactValue)
@@ -103,7 +106,8 @@ function ProfilePage(props) {
 
     const onCPasswordChange = (event) => {
         var contactValue = (event.target.value);
-        const expression = new RegExp('^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,12}$');
+        //const expression = new RegExp('^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,12}$');
+        const expression= new RegExp("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&-+=()])(?=\\S+$).{6,12}$");
         console.log(expression.test(contactValue));
         if (!(expression.test(contactValue))) {
             setCPassword(contactValue)
