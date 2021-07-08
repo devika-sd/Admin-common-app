@@ -1,6 +1,6 @@
 export const USER_LOGIN = "USER_LOGIN"
 export const RESET_AUTH="RESET_AUTH"
-
+var URL = 'http://localhost:8080'
 
 export const login = (success) => {
     console.log('In auth action: ', success)
@@ -26,7 +26,7 @@ export const userLogin = (user) => {
     console.log('In fech workout action *******************************')
     return dispatch => {
 
-        return fetch('http://localhost:8080/api/v1/users/login', {
+        return fetch(URL+'/api/v1/users/login', {
             headers: {
                 'content-type': 'application/json',
             },

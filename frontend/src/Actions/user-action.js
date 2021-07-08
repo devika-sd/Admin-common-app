@@ -9,7 +9,7 @@ export const FILTER_USER = "FILTER_USER"
 export const RESET_USER = "RESET_USER"
 export const SET_FILTER_ROLE='SET_FILTER_ROLE'
 export const RESET_MESSAGE='RESET_MESSAGE'
-
+var URL = 'http://localhost:8080'
 export const filteruserbyname = (filter) => {
     //add your code
     // console.log("***************"+name,page,limit,rolefilter);
@@ -20,7 +20,7 @@ export const filteruserbyname = (filter) => {
         filter=filter.replace("&isAdmin=none",'');
     } 
     return dispatch => {
-        fetch('http://localhost:8080/api/v1/users/?sort=name&'+filter , {
+        fetch(URL+'/api/v1/users/?sort=name&'+filter , {
             headers: authHeader()
         })
             .then(res => res.json())
@@ -36,7 +36,7 @@ export const fetchusers = (filter,message='') => {
     //add your code
     console.log("***************"+filter);
     return dispatch => {
-        fetch('http://localhost:8080/api/v1/users?sort=name&' + filter , {
+        fetch(URL+'/api/v1/users?sort=name&' + filter , {
             headers: authHeader()
         })
             .then(res => res.json())
@@ -52,7 +52,7 @@ export const fetchusers = (filter,message='') => {
 export const updateusers = (_id,roleData) => {
     //add your code
     return dispatch => {
-        fetch('http://localhost:8080/api/v1/users/'+_id,
+        fetch(URL+'/api/v1/users/'+_id,
             {
                 method: 'PUT',
                 headers: authHeader(),
@@ -79,7 +79,7 @@ export const updateusers = (_id,roleData) => {
 export const deleteusers = (email, filter) => {
     //add your code
     return dispatch => {
-        fetch('http://localhost:8080/api/v1/users/' + email, {
+        fetch(URL+'/api/v1/users/' + email, {
             method: 'DELETE',
             // headers: { 'Content-Type': 'application/json' }
             headers: authHeader()
@@ -98,7 +98,7 @@ export const deleteusers = (email, filter) => {
 export const blockusers = (email, status, filter) => {
     //add your code
     return dispatch => {
-        fetch('http://localhost:8080/api/v1/users/block/' + email + '&' + !status, {
+        fetch(URL+'/api/v1/users/block/' + email + '&' + !status, {
             method: 'PATCH',
             // headers: { 'Content-Type': 'application/json' }
             //body: JSON.stringify(inputs)
@@ -118,7 +118,7 @@ export const loginusers = (user) => {
     //add your code
     return dispatch => {
 
-        return fetch('http://localhost:8080/api/v1/users/login', {
+        return fetch(URL+'/api/v1/users/login', {
             headers: {
                 'content-type': 'application/json',
             },
@@ -156,7 +156,7 @@ const saveUser = (users) => {
 export const addusers = (user) => {
     //add your code
     return dispatch => {
-        fetch('http://localhost:8080/api/v1/users/', {
+        fetch(URL+'/api/v1/users/', {
             method: 'POST',
             headers: authHeader(),
             body: JSON.stringify(user)

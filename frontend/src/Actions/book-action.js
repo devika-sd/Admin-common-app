@@ -9,7 +9,7 @@ export const FILTER_BOOK = "FILTER_BOOK"
 export const FETCH_BOOK_COUNT = "FETCH_BOOK_COUNT"
 export const RESET_MESSAGE='RESET_MESSAGE'
 export const FETCH_AVAILABLE_COUNT='FETCH_AVAILABLE_COUNT'
-
+var URL = 'http://localhost:8080'
 const saveBook = (book) => {
     return {
         type: ADD_BOOK,
@@ -20,7 +20,7 @@ const saveBook = (book) => {
 export const addbook = (book) => {
     //add your code
     return dispatch => {
-        fetch('http://localhost:8080/api/v1/book/', {
+        fetch(URL+'/api/v1/book/', {
             method: 'POST',
             headers: authHeader(),
             body: JSON.stringify(book)
@@ -49,7 +49,7 @@ export const fetchbooks = (filter,message='') => {
     //add your code
     console.log("***************"+filter);
     return dispatch => {
-        fetch('http://localhost:8080/api/v1/book?sort=title&' + filter , {
+        fetch(URL+'/api/v1/book?sort=title&' + filter , {
             headers: authHeader()
         })
             .then(res => res.json())
@@ -66,7 +66,7 @@ export const fetchbooksbytitle = (title, filter) => {
     //add your code
     console.log("***************"+filter);
     return dispatch => {
-        fetch('http://localhost:8080/api/v1/book/' + title , {
+        fetch(URL+'/api/v1/book/' + title , {
             method: 'GET',
             headers: authHeader()
         })
@@ -82,7 +82,7 @@ export const fetchbooksbytitle = (title, filter) => {
 export const deletebooks = (title, filter) => {
     //add your code
     return dispatch => {
-        fetch('http://localhost:8080/api/v1/book/' + title, {
+        fetch(URL+'/api/v1/book/' + title, {
             method: 'DELETE',
             // headers: { 'Content-Type': 'application/json' }
             headers: authHeader()
@@ -102,7 +102,7 @@ export const updatebooks = (titles,bookData) => {
     //add your code
   
     return dispatch => {
-        fetch('http://localhost:8080/api/v1/book/'+titles,
+        fetch(URL+'/api/v1/book/'+titles,
             {
                 method: 'PUT',
                 headers: authHeader(),
@@ -132,7 +132,7 @@ export const filterbookbytitle = (title,page,limit) => {
     var filter = 'title[regex]='+title+'&page='+page+'&limit='+limit;
     console.log("*************"+filter+"************")
     return dispatch => {
-        fetch('http://localhost:8080/api/v1/book/?sort=title&'+filter , {
+        fetch(URL+'/api/v1/book/?sort=title&'+filter , {
             headers: authHeader()
         })
             .then(res => res.json())
@@ -147,7 +147,7 @@ export const filterbookbytitle = (title,page,limit) => {
 export const fetchBookCatogryCount = () => {
 
     return dispatch => {
-        fetch('http://localhost:8080/api/v1/book/chart/piechart', {
+        fetch(URL+'/api/v1/book/chart/piechart', {
             headers: authHeader()
         })
             .then(res => res.json())
@@ -163,7 +163,7 @@ export const fetchBookCatogryCount = () => {
 export const fetchBookavailableCount = () => {
 
     return dispatch => {
-        fetch('http://localhost:8080/api/v1/book/chart/barchart', {
+        fetch(URL+'/api/v1/book/chart/barchart', {
             headers: authHeader()
         })
             .then(res => res.json())
