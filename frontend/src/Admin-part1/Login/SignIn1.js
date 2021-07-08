@@ -88,7 +88,7 @@ class SignUp1 extends React.Component {
                                     <p style={{ fontSize: "12px" }} className="help-block text-danger">{this.state.emailError}</p>
                                 </div>
                                 <div className="input-group mb-1">
-                                    <input type="text" className="form-control" onChange={this.passwordCheck.bind(this)} placeholder="password" />
+                                    <input type="password" className="form-control" onChange={this.passwordCheck.bind(this)} placeholder="password" />
 
                                 </div>
                                 <div className="input-group mb-3">

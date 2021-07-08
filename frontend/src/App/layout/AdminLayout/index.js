@@ -51,7 +51,7 @@ class AdminLayout extends Component {
                     exact={route.exact}
                     name={route.name}
                     render={props => (
-                        currentUser.isAutenticated() ? <route.component {...props} /> 
+                        (currentUser.isAutenticated()&&currentUser.isTokenExpires()) ? <route.component {...props} /> 
                     : <Redirect to="/" />
                     )} />
             ) : (null);
