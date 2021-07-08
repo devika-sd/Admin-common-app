@@ -3,19 +3,14 @@ import { Row, Col, Card, Table } from 'react-bootstrap';
 import * as actionTypes from "../../store/actions";
 
 import Aux from "../../hoc/_Aux";
-import DEMO from "../../store/constant";
 
-import avatar1 from '../../assets/images/user/avatar-1.jpg';
 import avatar2 from '../../assets/images/user/avatar-2.jpg';
-import avatar3 from '../../assets/images/user/avatar-3.jpg';
 
 import { Link } from 'react-router-dom'
 import Pagination from 'react-bootstrap/Pagination'
 import { connect } from 'react-redux';
 import * as useractions from '../../Actions/user-action';
-import NavLeft from '../../App/layout/AdminLayout/NavBar/NavLeft/index';
 import NavSearch from '../../App/layout/AdminLayout/NavBar/NavLeft/NavSearch';
-import Notification from '../Notification/Notification';
 
 class UserList extends React.Component {
     constructor(props) {

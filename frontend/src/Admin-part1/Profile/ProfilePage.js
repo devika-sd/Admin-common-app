@@ -1,4 +1,4 @@
-import { Row, Col, Card, Form, Button, Table,Image } from 'react-bootstrap';
+import { Row, Col, Card, Form, Button } from 'react-bootstrap';
 
 import Aux from "../../hoc/_Aux";
 import avatar2 from '../../assets/images/user/avatar-2.jpg';

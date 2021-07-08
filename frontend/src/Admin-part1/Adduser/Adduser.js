@@ -226,7 +226,7 @@ class AddUser extends Component {
 
                                             <Form.Group controlId="formBasicPassword">
                                                 <Form.Label>Password</Form.Label>
-                                                <Form.Control onChange={this.passwordCheck.bind(this)} type="text" placeholder="Password" />
+                                                <Form.Control onChange={this.passwordCheck.bind(this)} type="password" placeholder="Password" />
                                                 <p className="help-block text-danger">{this.state.passwordError}</p>
                                             </Form.Group>
                                             <Form.Group controlId="exampleForm.ControlSelect1">
