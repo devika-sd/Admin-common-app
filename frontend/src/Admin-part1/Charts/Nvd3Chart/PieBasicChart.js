@@ -18,7 +18,7 @@ class PieBasicChart extends React.Component {
         }
     }
     componentDidMount() {
-        // await fetch("http://localhost:8080/api/v1/orders/count", {
+        // await fetch("https://firstapp-bookstore.herokuapp.com//api/v1/orders/count", {
 
         // })
         //     .then(res => res.json())

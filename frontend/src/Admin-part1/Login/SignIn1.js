@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import '../../assets/scss/style.scss';
 import Aux from "../../hoc/_Aux";
 import Breadcrumb from "../../App/layout/AdminLayout/Breadcrumb";
-import Alert from 'react-bootstrap/Alert'
 
 import * as useractions from '../../Actions/user-action';
 import * as authactions from '../../Actions/auth-actions';
@@ -11,7 +10,7 @@ import * as authactions from '../../Actions/auth-actions';
 class SignUp1 extends React.Component {
     constructor() {
         super();
-        this.state = { email: '', password: '', emailError: '', passwordError: '', emailvalid: 0, passwordvalid: 0,timeout:true };
+        this.state = { email: '', password: '', emailError: '', passwordError: '', emailvalid: 0, passwordvalid: 0};
     }
 
     emailCheck(event) {
@@ -47,12 +46,7 @@ class SignUp1 extends React.Component {
         if (this.props.authenticated) {
             this.props.history.push('/dashboard');
         }
-        else {
-            this.setState({timeout:true})
-            setTimeout(()=>{
-                this.setState({timeout:false})
-            },2000)
-        }
+       
         
     }
 
@@ -78,9 +72,6 @@ class SignUp1 extends React.Component {
                                     <i className="feather icon-unlock auth-icon" />
                                 </div>
                                 <h3 className="mb-5">Login</h3>
-                                {this.props.message && this.state.timeout && <Alert variant='dark' style={{borderRadius: '5px'}}>
-                                    {this.props.message}
-                                </Alert>}
                                 <div className="input-group mb-1">
                                     <input type="email" className="form-control" onChange={this.emailCheck.bind(this)} placeholder="Email" />
                                 </div>
@@ -114,7 +105,6 @@ const mapStateToProps = (state) => {
     return {
         userReducer: state.userReducer.currentUser,
         authenticated: state.authReducer.authenticated,
-        message: state.userReducer.message
     }
 }
 

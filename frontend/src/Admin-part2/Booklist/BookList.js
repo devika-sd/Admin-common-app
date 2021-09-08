@@ -125,6 +125,9 @@ class BookList extends React.Component {
                     <h6 className="text-muted">{book.authors}</h6>
                 </td>
                 <td>
+                    <h6 className="text-muted">{book.category}</h6>
+                </td>
+                <td>
                     <Link to={"/viewbook/" + i}><span style={{ width: '100px', display: 'inline-block', textAlign: 'center' }} className="label theme-bg2 text-white f-12">View/Update</span></Link>
                      <span style={{ width: '70px', display: 'inline-block', textAlign: 'center' }} className="label theme-bg3 text-white f-12" onClick={() => { this.onDeleteBook(book.title) }}>Delete</span>
                 </td>

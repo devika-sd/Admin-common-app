@@ -42,7 +42,7 @@ function ProfilePage(props) {
             console.log(props.users[0].photo)
             if(props.users[0].photo)
             {
-                setSrcp('http://localhost:8080/dp/' + props.users[0].photo)
+                setSrcp('https://firstapp-bookstore.herokuapp.com/dp/' + props.users[0].photo)
             }
             else
             {
@@ -175,7 +175,8 @@ function ProfilePage(props) {
                         padding: '10px 15px',
                         textTransform: 'capitalize',
                         borderRadius: '5px',
-                        outline: 'none'
+                        outline: 'none',
+                        backgroundColor:'#f4f7fa'
                     }} as="textarea" value={newAdd} placeholder="Enter Name" />
                 </Col>
             </Form.Group>
@@ -228,7 +229,8 @@ function ProfilePage(props) {
                                                     padding: '10px 15px',
                                                     textTransform: 'capitalize',
                                                     borderRadius: '5px',
-                                                    outline: 'none'
+                                                    outline: 'none',
+                                                    backgroundColor:'#f4f7fa'
                                                 }} type="text" value={name} onChange={onNameChange} placeholder="Enter Name" />
                                             </Col>
 
@@ -250,7 +252,8 @@ function ProfilePage(props) {
                                                     border: '1px solid lightgrey',
                                                     padding: '10px 15px',
                                                     borderRadius: '5px',
-                                                    outline: 'none'
+                                                    outline: 'none',
+                                                    backgroundColor:'#f4f7fa'
                                                 }} type="email" value={email} onChange={onEmailChange} placeholder="Enter Email" />
                                             </Col>
 
@@ -271,7 +274,8 @@ function ProfilePage(props) {
                                                     border: '1px solid lightgrey',
                                                     padding: '10px 15px',
                                                     borderRadius: '5px',
-                                                    outline: 'none'
+                                                    outline: 'none',
+                                                    backgroundColor:'#f4f7fa'
                                                 }} type="text" value={phone} onChange={onContactChange} placeholder="Enter Contact Number" />
                                             </Col>
 

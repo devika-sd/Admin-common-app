@@ -241,8 +241,8 @@ function Ordermodel(props) {
                                         </Col>
                                         <Col sm={12} md={12} style={{width:'100%',textAlign:'center'}}>
                                             <div style={{marginTop:'50px'}}>
-                                            <Button style={{ width: "90px", marginTop: '50px', margin:'10px' }} onClick={cancel} variant="primary">CANCEL</Button>
-                                            <Button style={{ width: "90px", marginTop: '50px', margin:'10px'  }} onClick={Update} variant="primary">UPDATE</Button>
+                                            <Button style={{ width: "fit-content", marginTop: '50px', margin:'10px' }} onClick={cancel} variant="primary">CANCEL</Button>
+                                            <Button style={{ width: "fit-content", marginTop: '50px', margin:'10px'  }} onClick={Update} variant="primary">UPDATE</Button>
 
                                             </div>
                                         </Col>

@@ -13,7 +13,7 @@ class Dashboard extends React.Component {
     }
 
     componentDidMount() {
-        fetch('http://localhost:8080/api/v1/orders/count', {
+        fetch('https://firstapp-bookstore.herokuapp.com/api/v1/orders/count', {
             headers: authHeader()
         })
             .then(res => res.json())
@@ -25,7 +25,7 @@ class Dashboard extends React.Component {
                 this.setState({cancelledOreder:data.cancelledcount});
                 // dispatch({ type: COUNT_ORDER, payload: data });
             })
-        fetch('http://localhost:8080/api/v1/book', {
+        fetch('https://firstapp-bookstore.herokuapp.com/api/v1/book', {
             headers: authHeader()
         })
             .then(res => res.json())
@@ -101,11 +101,7 @@ class Dashboard extends React.Component {
                         </Card>
                     </Col>
                     <Col sm={12}>
-                        <Card>
-                            <Card.Body>
-                                <Index/>
-                            </Card.Body>
-                        </Card>
+                        <Index/>
                     </Col>
                     
                 </Row>

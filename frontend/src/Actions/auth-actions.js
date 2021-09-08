@@ -1,6 +1,6 @@
 export const USER_LOGIN = "USER_LOGIN"
 export const RESET_AUTH="RESET_AUTH"
-var URL = 'http://localhost:8080'
+var URL = 'https://firstapp-bookstore.herokuapp.com'
 
 export const login = (success) => {
     console.log('In auth action: ', success)

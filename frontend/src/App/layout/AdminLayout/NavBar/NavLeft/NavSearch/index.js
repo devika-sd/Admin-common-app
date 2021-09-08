@@ -9,8 +9,8 @@ import DEMO from "../../../../../../store/constant";
 
 class NavSearch extends Component {
     state = {
-        searchWidth: (this.props.windowWidth < 992) ? 100 : 0,
-        searchString: (this.props.windowWidth < 992) ? '100px' : '',
+        searchWidth: (this.props.windowWidth < 992) ? 200 : 200,
+        searchString: (this.props.windowWidth < 992) ? '200px' : '200px',
         isOpen: (this.props.windowWidth < 992),
         isAdmin: '',
         initial: ''
@@ -22,13 +22,13 @@ class NavSearch extends Component {
     searchOnHandler = () => {
         this.setState({ isOpen: true });
         const searchInterval = setInterval(() => {
-            if (this.state.searchWidth >= 101) {
+            if (this.state.searchWidth >= 201) {
                 clearInterval(searchInterval);
                 return false;
             }
             this.setState(prevSate => {
                 return {
-                    searchWidth: prevSate.searchWidth + 100,
+                    searchWidth: prevSate.searchWidth + 200,
                     searchString: prevSate.searchWidth + 'px'
                 }
             });
@@ -46,19 +46,19 @@ class NavSearch extends Component {
             console.log("working.........000........." + this.props.role)
             this.props.onGetUsers("page=" + 1 + "&limit=" + 5 + '&isAdmin=' + this.props.role);
         }
-        const searchInterval = setInterval(() => {
-            if (this.state.searchWidth < 0) {
-                this.setState({ isOpen: false });
-                clearInterval(searchInterval);
-                return false;
-            }
-            this.setState(prevSate => {
-                return {
-                    searchWidth: prevSate.searchWidth - 100,
-                    searchString: prevSate.searchWidth + 'px'
-                }
-            });
-        }, 35);
+        // const searchInterval = setInterval(() => {
+        //     if (this.state.searchWidth < 0) {
+        //         this.setState({ isOpen: false });
+        //         clearInterval(searchInterval);
+        //         return false;
+        //     }
+        //     this.setState(prevSate => {
+        //         return {
+        //             searchWidth: prevSate.searchWidth - 200,
+        //             searchString: prevSate.searchWidth + 'px'
+        //         }
+        //     });
+        // }, 35);
     };
 
     async filterdata(e) {
@@ -93,7 +93,7 @@ class NavSearch extends Component {
         console.log("******from searchbar*******" + this.props.role)
         return (
             <Aux>
-                <div id="main-search" className={searchClass.join(' ')}>
+                <div id="main-search" className='main-search open'>
                     <div className="input-group">
                         <input type="text" id="m-search" value={this.state.initial} onChange={this.filterdata.bind(this)} className="form-control" placeholder="Search . . ." style={{ width: this.state.searchString }} />
                         <a href={DEMO.BLANK_LINK} className="input-group-append search-close" onClick={this.searchOffHandler}>

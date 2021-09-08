@@ -2,14 +2,10 @@ import React, { useState, useEffect } from 'react';
 import Modal from '@material-ui/core/Modal';
 import { makeStyles } from '@material-ui/core/styles';
 import { Card, Form, Button, Row, Col } from 'react-bootstrap'
-import { Table } from 'react-bootstrap'
 import { useParams } from "react-router-dom"
 import { connect } from 'react-redux';
-import Notification from '../../Admin-part1/Notification/Notification';
 import { useHistory } from "react-router";
 
-import Aux from "../../hoc/_Aux";
-import avatar2 from '../../assets/images/user/avatar-2.jpg';
 
 import * as bookactions from '../../Actions/book-action';
 
@@ -32,18 +28,17 @@ const useStyles = makeStyles((theme) => ({
 
 
 function ViewBook(props) {
-    console.log(props.location.order);
     let { id } = useParams();
     const history = useHistory();
     const classes = useStyles();
     var [modalStyle] = useState(getModalStyle);
     var [open, setOpen] = useState(true);
-    let { orderid } = useParams();
+    const [bookid,setBookid] = useState('');
     const [title, setTitle] = useState('');
     const [titleTemp, setTitleTemp] = useState('');
     const [authors, setAuthors] = useState('');
-    let newdate = new Date();
     const [publishDate, setPublishDate] = useState('');
+    const [publishDate1, setPublishDate1] = useState('');
     const [isbn, setIsbn] = useState('');
     const [price, setPrice] = useState('');
     const [discount, setDiscount] = useState('');
@@ -93,6 +88,7 @@ function ViewBook(props) {
            // let date = new Date(props.books[0].publishDate);
 //date.getFullYear()+'-' + (date.getMonth()+1) + '-'+date.getDate();
          //   console.log("jjjj "+date.getFullYear()+'-' + (date.getMonth()+1) + '-'+date.getDate())
+            setBookid(props.books[id]._id)
             setTitle(props.books[id].title)
             setTitleTemp(props.books[id].title)
             setCategory(props.books[id].category)
@@ -102,6 +98,7 @@ function ViewBook(props) {
             setAvailable(props.books[id].available)
            // var d = new Date(date.getFullYear(), (date.getMonth()+1), date.getDate());
             var publishedDate = new Date(props.books[id].publishDate)
+            setPublishDate1(props.books[id].publishDate)
             setPublishDate(publishedDate.toLocaleDateString())
             setAuthors(props.books[id].authors)
             
@@ -115,11 +112,11 @@ function ViewBook(props) {
     const update = async (event) => {
         setNotify(true);
    
-        let bookData = { title, category, authors, isbn, price, discount, available, publishDate}
+        let bookData = { title, category, authors, isbn, price, discount, available, publishDate:publishDate1}
         if(titleTemp === null){
-        props.onUpdate(title, bookData)
+        props.onUpdate(bookid, bookData)
         } else{
-            props.onUpdate(titleTemp, bookData)
+            props.onUpdate(bookid, bookData)
         }
         setEnable(true)
     }
@@ -356,7 +353,7 @@ function ViewBook(props) {
 
                                         </Col>
                                         
-                                        <Button  style={{ width: "90px", margin: 'auto' }} onClick={update} variant="primary">UPDATE</Button>
+                                        <Button  style={{ width: "fit-content", margin: 'auto' }} onClick={update} variant="primary">UPDATE</Button>
                                     </Row>
                                 }
 

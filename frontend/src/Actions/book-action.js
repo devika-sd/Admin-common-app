@@ -9,7 +9,7 @@ export const FILTER_BOOK = "FILTER_BOOK"
 export const FETCH_BOOK_COUNT = "FETCH_BOOK_COUNT"
 export const RESET_MESSAGE='RESET_MESSAGE'
 export const FETCH_AVAILABLE_COUNT='FETCH_AVAILABLE_COUNT'
-var URL = 'http://localhost:8080'
+var URL = 'https://firstapp-bookstore.herokuapp.com'
 const saveBook = (book) => {
     return {
         type: ADD_BOOK,
@@ -98,11 +98,11 @@ export const deletebooks = (title, filter) => {
     }
 }
 
-export const updatebooks = (titles,bookData) => {
+export const updatebooks = (bookid,bookData) => {
     //add your code
   
     return dispatch => {
-        fetch(URL+'/api/v1/book/'+titles,
+        fetch(URL+'/api/v1/book/'+bookid,
             {
                 method: 'PUT',
                 headers: authHeader(),
